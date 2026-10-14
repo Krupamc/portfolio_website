@@ -22,12 +22,12 @@
         </style>
 
         <!-- Meta data... -->
-        <meta name="description" content="Weather Station Monitoring System for {{system_name}}">
+        <meta name="description" content="Website Portfolio for Krupam Patel">
         <meta name="author" content="Krupam Patel">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
         <!-- Title of page for social media. CVan match title tag or be more descriptive -->
-        <meta property="og:title" content="{{system_name}} Mesonet System">
+        <meta property="og:title" content="Krupam Patel Portfolio">
 
         <!-- Set for website for static sites or article for content-heavy -->
         <meta property="og:type" content="website">
@@ -47,7 +47,7 @@
         <link rel="manifest" href="{{ url_for('static', path='/site.webmanifest') }}">
 
     </head>
-    <body>
+    <body class="website_background">
         <!-- Broswer title -->
         <title>
             {% if title %}
@@ -56,18 +56,7 @@
                 {{system_name}} Mesonet System
             {% endif %}
         </title>
-
-        <!-- Red Bar on top with title-->
-        <div id="top-red-bar" class="top_red_bar" >
-            <span id="top-red-bar-text" class="top_red_bar_text">
-                {% if title %}
-                    {{system_name}} Mesonet System - {{ title }}
-                {% else %}
-                    {{system_name}} Mesonet System
-                {% endif %}
-            </span>
-        </div>
-
+        
         <div id="top-menu-bar" class="top_menu_bar">
 
             <nav class="menu_bar">
@@ -80,28 +69,7 @@
                     </a>
                     <a href="/stations" class="nav_item {% if active_page == 'stations' %}active{% endif %}">WEATHER STATIONS ▼</a>
                     <a href="/graph" class="nav_item {% if active_page == 'graph' %}active{% endif %}">GRAPHING AND ANALYSIS ▼</a>
-                    <!-- If user is signed in-->
-                    {% if current_user %}
-                        <!-- My Stations-->
-                        <a href="/my-stations" class="nav_item {% if active_page == 'my_stations' %}active{% endif %}">MY STATIONS ▼</a>
-                        
-                        <!-- If admin -->
-                        {% if current_user["role"] == "admin" %}
-                            <a href="/settings" class="nav_item {% if active_page == 'settings' %}active{% endif %}">SETTINGS ▼</a>
-                        {% endif %}
-                        
-                        <!-- Logout and Profile-->
-                        <a href="/logout" class="nav_item">LOGOUT ▼</a>
-                        <a href="/my-stations" class="nav_item nav_profile">
-                            <img src="{{ url_for('static', path='/icons/blank_pfp.png')}}">
-                            <span>{{ current_user["username"] }}</span>
-                        </a>
 
-                        <!-- Public -->
-                        {% else %}
-                            <a href="/login" class="nav_item {% if active_page == 'login' %}active{% endif %}">LOGIN ▼</a>
-                            <a href="/register" class="nav_item {% if active_page == 'register' %}active{% endif %}">REGISTER ▼</a>
-                        {% endif %}
                 </div>
             </nav>
         </div>
@@ -115,7 +83,7 @@
         <!-- Copyright Footer -->
         <footer class="site_footer">
             <p class="site_footer_text">© 2026 Krupam Patel · Built for the Save Barnegat Bay Mesonet ·</p>
-            <a class="site_footer_link" href="https://github.com/Krupamc/Weather-underground-status-scraper" target="_blank" rel="noopener noreferrer" aria-label="View source code on GitHub">
+            <a class="site_footer_link" href="https://github.com/Krupamc/portfolio_website" target="_blank" rel="noopener noreferrer" aria-label="View source code on GitHub">
                 <img src="{{ url_for('static', path='/icons/github_logo.png')}}" alt="" class="site_footer_icon">
                 <span>View source on GitHub</span>
             </a>

@@ -1,0 +1,7 @@
+#272838
+#5D536B
+#7D6B91
+#989FCE
+#347FC4
+
+start with: uvicorn main:app --reload --host 0.0.0.0
