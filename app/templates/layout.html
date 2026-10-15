@@ -47,13 +47,13 @@
         <link rel="manifest" href="{{ url_for('static', path='/site.webmanifest') }}">
 
     </head>
-    <body class="website_background">
+    <body>
         <!-- Broswer title -->
         <title>
             {% if title %}
-                {{ title }}
+                {{ title }} Krupam's Portfolio
             {% else %}
-                {{system_name}} Mesonet System
+                Krupam Patel Portfolio
             {% endif %}
         </title>
         
@@ -66,9 +66,10 @@
                     <!-- Logo link -->
                     <a href="/" class="logo_link">
                         <img src="{{ url_for('static', path='/icons/logo.png') }}" alt="logo">
+                        <p>Krupam Patel Portfolio</p>
                     </a>
-                    <a href="/stations" class="nav_item {% if active_page == 'stations' %}active{% endif %}">WEATHER STATIONS ▼</a>
-                    <a href="/graph" class="nav_item {% if active_page == 'graph' %}active{% endif %}">GRAPHING AND ANALYSIS ▼</a>
+                    <a href="/stations" class="nav_item {% if active_page == 'stations' %}active{% endif %}">Link 1 ▼</a>
+                    <a href="/graph" class="nav_item {% if active_page == 'graph' %}active{% endif %}">Link 2 ▼</a>
 
                 </div>
             </nav>
@@ -82,7 +83,7 @@
         
         <!-- Copyright Footer -->
         <footer class="site_footer">
-            <p class="site_footer_text">© 2026 Krupam Patel · Built for the Save Barnegat Bay Mesonet ·</p>
+            <p class="site_footer_text">© 2026 Krupam Patel</p>
             <a class="site_footer_link" href="https://github.com/Krupamc/portfolio_website" target="_blank" rel="noopener noreferrer" aria-label="View source code on GitHub">
                 <img src="{{ url_for('static', path='/icons/github_logo.png')}}" alt="" class="site_footer_icon">
                 <span>View source on GitHub</span>

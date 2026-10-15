@@ -1,7 +1,25 @@
-#272838
-#5D536B
-#7D6B91
-#989FCE
-#347FC4
-
+#50808E
+#69A297
+#84B59F
+#A3C9A8
+#DDD8C4
+#243438
 start with: uvicorn main:app --reload --host 0.0.0.0
+
+:root {
+    /* Primary colors */
+    --primary-color: #50808E;
+    --secondary-color: #69A297;
+    --accent-color: #84B59F;
+    --surface-color: #A3C9A8;
+    --background-color: #DDD8C4;
+    --text-base: #243438;
+    /* Derived */
+    --text-color: var(--text-base);
+    --heading-color: var(--text-base);
+    --button-text: var(--text-base);
+    --button-text-hover: var(--background-color);
+    --button-color: #f3f3f3;
+    --button-color-hover: var(--accent-color);
+    
+}
