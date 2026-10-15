@@ -213,9 +213,12 @@ button.nav_item {
     gap: 10px;
 }
 
-.submenu_toggle:hover {
-    transform: none;
+.submenu_toggle:hover, .submenu_toggle[aria-expanded="true"] {
+    transform: translateY(-3px);
+    background-color: var(--accent-color);
+    color: var(--off-white)
 }
+
 
 .submenu_arrow {
     display: inline-block;
@@ -302,7 +305,6 @@ button.nav_item {
         white-space: normal;
     }
 }
-
 
 /* Footer */
 .site_footer {
