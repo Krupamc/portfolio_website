@@ -4,7 +4,7 @@
     <head>
         
         <!-- Preconnect for fonts and style -->
-        <link rel="stylesheet" href="{{ url_for('static', path='/style.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', path='/style.css?tesdt2') }}">
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
@@ -65,7 +65,7 @@
                 <div class="nav_links">
                     <!-- Logo link -->
                     <a href="/" class="logo_link">
-                        <img src="{{ url_for('static', path='/icons/logo.png') }}" alt="logo" width="225" class="logo_link">
+                        <img src="{{ url_for('static', path='/icons/logo.png') }}" alt="logo">
                     </a>
                     <a href="/stations" class="nav_item {% if active_page == 'stations' %}active{% endif %}">WEATHER STATIONS ▼</a>
                     <a href="/graph" class="nav_item {% if active_page == 'graph' %}active{% endif %}">GRAPHING AND ANALYSIS ▼</a>
