@@ -22,6 +22,7 @@ body {
     background: var(--background-color);
     color: var(--text-color);
     line-height: 1.6;
+    font-family: 'Times New Roman', Times, serif;
 }
 
 h1, h2, h3 {
@@ -175,4 +176,18 @@ a {
     display: flex;
     justify-content: center;
     padding-top: 180px;
+}
+
+.break_line {
+    border-top: 1px solid var(--accent-color);
+}
+
+/* Text */
+.title_header {
+    size: 16px;
+    color: var(--secondary-color);
+}
+
+.p_text {
+    size: 
 }

@@ -21,5 +21,4 @@ start with: uvicorn main:app --reload --host 0.0.0.0
     --button-text-hover: var(--background-color);
     --button-color: #f3f3f3;
     --button-color-hover: var(--accent-color);
-    
 }
