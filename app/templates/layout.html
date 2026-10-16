@@ -74,20 +74,20 @@
                 <div class="nav_links" id="main-nav-links">
                     <!-- Services dropdown-->
                     <div class="nav_dropdown">
-                        <button type="button" class="nav_item submenu_toggle" aria-expanded="false" aria-controls="services-submenu">My Services and Websites <span class=submenu_arrow aria-hidden="true">▼</span></button>
+                        <button type="button" class="nav_item submenu_toggle" aria-expanded="false" aria-controls="services-submenu">My Services and Websites<span class=submenu_arrow aria-hidden="true">▼</span></button>
 
                         <ul class="nav_submenu" id="services-submenu" hidden>
                             <li>
-                                <a href="/stations" class="nav_item {% if active_page == 'stations' %}active{% endif %}">Link 1 ▼</a>
+                                <a href="/stations" class="nav_item {% if active_page == 'stations' %}active{% endif %}">Link 1</a>
                             </li>
                             <li>
-                                <a href="/graph" class="nav_item {% if active_page == 'graph' %}active{% endif %}">Link 2 ▼</a>
+                                <a href="/graph" class="nav_item {% if active_page == '-' %}active{% endif %}">Link 2</a>
                             </li>
                         </ul>
                     </div>
 
                     <!-- Reg. links-->
-                    <a href="/contact" class="nav_item {% if active_page == 'graph' %}active{% endif %}">Contact</a>
+                    <a href="/contact" class="nav_item {% if active_page == 'contact' %}active{% endif %}">Contact</a>
                     
 
                 </div>
@@ -217,12 +217,12 @@
         <!-- Copyright Footer -->
         <footer class="site_footer">
             <p class="site_footer_text">© 2026 Krupam Patel</p>
+            <a class="site_footer_link" href="/contact" aria-label="My Contact info!">
+                <span>Contact Me!</span>
+            </a>
             <a class="site_footer_link" href="https://github.com/Krupamc/portfolio_website" target="_blank" rel="noopener noreferrer" aria-label="View source code on GitHub">
                 <img src="{{ url_for('static', path='/icons/github_logo.png')}}" alt="" class="site_footer_icon">
                 <span>View source on GitHub</span>
-            </a>
-            <a class="site_footer_link" href="/contact" aria-label="My Contact info!">
-                <span>Contact Me!</span>
             </a>
         </footer>
     </body>

@@ -40,4 +40,8 @@ async def not_found(request: Request, exc: StarletteHTTPException):
 
 @app.get("/", response_class=HTMLResponse)
 def root(request: Request):
-    return templates.TemplateResponse(request, "home.html", {"request": request,})
+    return templates.TemplateResponse(request, "home.html", {"request": request})
+
+@app.get("/contact", response_class=HTMLResponse)
+def contact(request: Request):
+    return templates.TemplateResponse(request, "contact.html", {"request": request, "active_page": "contact"})
