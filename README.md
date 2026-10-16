@@ -34,7 +34,7 @@ Have several sub pages with links to band, theatre, and all the other stuff I do
 - Being cool
 
 ## Installation:
-- Download/Clone the repository (if in Linux "git clone https://github.com/Krupac/portfolio_website") 
+- Download/Clone the repository (if in Linux "git clone https://github.com/Krupamc/portfolio_website") 
 
 ### Docker (linux)
 - Make sure docker is installed (this is not a docker guide. Check out their [https://docs.docker.com/engine/install/](docs)). - Open folder
