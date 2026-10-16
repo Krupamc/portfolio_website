@@ -34,14 +34,31 @@ Have several sub pages with links to band, theatre, and all the other stuff I do
 - Being cool
 
 ## Installation:
-- Clone the repository (if in Linux "git clone https://github.com/Krupac/portfolio_website")
+- Download/Clone the repository (if in Linux "git clone https://github.com/Krupac/portfolio_website") 
 
 ### Docker (linux)
 - Make sure docker is installed (this is not a docker guide. Check out their [https://docs.docker.com/engine/install/](docs)). - Open folder
   - Edit the .env file for what port you want the website run on. Edit the "FASTAPI_PORT" value (default is 8001)
-<img width="911" height="127" alt="image" src="https://github.com/user-attachments/assets/e5182249-2934-4788-841-5930016ab62" />
+<img width="1105" height="135" alt="image" src="https://github.com/user-attachments/assets/c9f94908-0da2-4b80-ad19-374937d18eaa" />
+
 -Run docker compose up -d (-d flag is for detached mode or running in background. To watch for any errors, run without flag) 
   - If it does not work, try running it with "sudo in front of it.
   - To turn off, run docker compose down (-v flag will delete all of the containers fully. Does not delete the repo folder) 
-<img width="1041" height="256" alt="image" src="https://github.com/user-attachments/assets/33c9f5ca-7444-4a65-baeb-d5f9cb414443"/>
-- Navigate to your browser and then to [http://127.0.0.1:8001]([http://127.0.0.1:80011) (or change the port or the numbers after the colon)
+<img width="1458" height="240" alt="image" src="https://github.com/user-attachments/assets/31c2365b-c8d9-421e-b2ab-635f9f4e94f9" />
+- Navigate to your browser and then to http://127.0.0.1:8001 (or change the port or the numbers after the colon)
+- TADA you are now running the website. (I would question why you would want to run a website of me, but you do you ig).
+
+### Python (Windows/Mac):
+- Make sure python is installed (this is not a python guide. Check out their [https://www.python.org/downloads/](docs)). - Open folder
+- Unzip the folder.
+- Open `CMD` on windows (type CMD) or open terminal in Mac.
+- Do the command `cd` (change directory also known as a folder`) and move to where the unzipped folder is.
+- Make a virtual environment `python -m venv env`
+  - You can replace python with `python3` if it doesn't work. You can also change the name of the environment by replacing `env`
+- Now we must activate the virtual environment. Run: `<env_name>\Scripts\activate.bat` (Make sure you use \'s and not /)
+  - `source .venv/bin/activate` for mac
+- Run: pip install -r requirements.txt to install from the list in requirements.txt.
+- cd into the `app` folder
+- Run  `uvicorn main:app --reload --port 8001` (can also change the port)
+- Navigate to your browser and then to http://127.0.0.1:8001 (or change the port or the numbers after the colon)
+- TADA you are now running the website. (I would question why you would want to run a website of me, but you do you ig).
