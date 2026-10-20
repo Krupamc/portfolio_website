@@ -1,0 +1,50 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    <div class="main_page">
+        <div class="main_container">
+            <p></p>
+            <div class="break_line"></div>
+            <h1 class="title_header">My Homelab!</h1>
+
+            <p class="subtitle">What is a Homelab?</p>
+            <div class="paragraph">
+                <p>A "homelab" is a computer and networking enviroment to host your own software and services, tinker, and learning in your own home. Built with your hardware and controlled by you. It can be a Raspberry Pi to a giant server rack.</p>
+            </div>
+
+            <p class="subtitle">My Stack:</p>
+            <div style="display: flex; align-items: flex-start; gap: 20px">
+                <div class="paragraph" style="flex: 1">
+                    <!-- Specs-->
+                    <details>
+                        <summary>Server Specs</summary>
+                        <p>HP Z240 Tower Workstation:</p>
+                        <ul>
+                            <li>Intel Core i7-7700</li>
+                            <li>256 GB NVME SSD</li>
+                            <li>32 GB DDR4 2400 MT/S (4 sticks)</li>
+                            <li>2x WD Red Plus 4 TB Sata HDDs</li>
+                            <li>Running Proxmox</li>
+                        </ul>
+                    </details>
+
+                    <!-- Services -->
+                    <div>
+                        <p>Self-Hosted Services:</p>
+                        <ul>
+                            <li>Home Assistant | Home Automation</li>
+                            <li>Openmediavault | File Sharing and NAS (Network Attached Storage)</li>
+                            <li>Pi-hole | Ad-Block</li>
+                            <li>Immich Photo Server | Photos</li>
+                            <li>Crafty Controller | Minecraft Servers</li>
+                            <li>ConvertX | File Conversions</li>
+                            <li>This website!!!</li>
+                            <li>And more!</li>
+                        </ul>
+                    </div>
+                </div>
+                <img src="{{ url_for('static', path='/icons/homelab.png') }}" style="width: 300px;" class="image" alt="My Server">
+            </div>    
+        </div>
+    </div>
+{% endblock%}

@@ -51,7 +51,7 @@
         <!-- Broswer title -->
         <title>
             {% if title %}
-                {{ title }} Krupam's Portfolio
+                {{ title }} | Krupam's Portfolio
             {% else %}
                 Krupam Patel Portfolio
             {% endif %}
@@ -74,14 +74,14 @@
                 <div class="nav_links" id="main-nav-links">
                     <!-- Services dropdown-->
                     <div class="nav_dropdown">
-                        <button type="button" class="nav_item submenu_toggle" aria-expanded="false" aria-controls="services-submenu">My Services and Websites<span class=submenu_arrow aria-hidden="true">▼</span></button>
+                        <button type="button" class="nav_item submenu_toggle" aria-expanded="false" aria-controls="services-submenu">My Services and Homelab<span class=submenu_arrow aria-hidden="true">▼</span></button>
 
                         <ul class="nav_submenu" id="services-submenu" hidden>
                             <li>
                                 <a href="/services" class="nav_item {% if active_page == 'services' %}active{% endif %}">Services</a>
                             </li>
                             <li>
-                                <a href="/graph" class="nav_item {% if active_page == '-' %}active{% endif %}">Link 2</a>
+                                <a href="/homelab" class="nav_item {% if active_page == 'homelab' %}active{% endif %}">My Homelab</a>
                             </li>
                         </ul>
                     </div>
