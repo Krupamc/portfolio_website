@@ -72,6 +72,17 @@
                 <!-- Menu Bar -->
                  <!-- Button to open submenu with list of links -->
                 <div class="nav_links" id="main-nav-links">
+
+                    <!-- MATES Dropdown-->
+                    <div class="nav_dropdown">
+                        <button type="button" class="nav_item submenu_toggle" aria-expanded="false" aria-controls="mates-submenu">MATES<span class="submenu_arrow" aria-hidden="true">▼</span></button>
+                    
+                        <ul class="nav_submenu" id="mates-submenu" hidden>
+                            <li>
+                                <a href="/mates" class="nav_item {% if active_page == 'mates' %}active{% endif %}">MATES?</a>
+                            </li>
+                        </ul>
+                    </div>
                     <!-- Services dropdown-->
                     <div class="nav_dropdown">
                         <button type="button" class="nav_item submenu_toggle" aria-expanded="false" aria-controls="services-submenu">My Services and Homelab<span class=submenu_arrow aria-hidden="true">▼</span></button>
@@ -85,6 +96,8 @@
                             </li>
                         </ul>
                     </div>
+
+                    
 
                     <!-- Reg. links-->
                     <a href="/contact" class="nav_item {% if active_page == 'contact' %}active{% endif %}">Contact</a>
