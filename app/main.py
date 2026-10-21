@@ -1,5 +1,5 @@
 from fastapi import FastAPI, Request, HTTPException
-from fastapi.responses import HTMLResponse, RedirectResponse
+from fastapi.responses import HTMLResponse, RedirectResponse, PlainTextResponse
 from pathlib import Path
 from starlette.exceptions import HTTPException as StarletteHTTPException
 from fastapi.exception_handlers import http_exception_handler
@@ -42,6 +42,15 @@ async def not_found(request: Request, exc: StarletteHTTPException):
 def root(request: Request):
     return templates.TemplateResponse(request, "home.html", {"request": request})
 
+@app.get("/robots.txt", response_class=PlainTextResponse, include_in_schema=False)
+def robots_txt():
+    return """\
+User-agent: *
+Disallow: /users/
+
+Allow: /
+"""
+
 @app.get("/mates", response_class=HTMLResponse)
 def mates(request: Request):
     return templates.TemplateResponse(request, "mates.html", {"request": request, "active_page": "mates"})
@@ -53,6 +62,10 @@ def contact(request: Request):
 @app.get("/homelab", response_class=HTMLResponse)
 def homelab(request: Request):
     return templates.TemplateResponse(request, "homelab.html", {"request": request, "active_page": "homelab"})
+
+@app.get("/research", response_class=HTMLResponse)
+def research(request: Request):
+    return templates.TemplateResponse(request, "research.html", {"request": request, "active_page": "research"})
 
 @app.get("/contact", response_class=HTMLResponse)
 def contact(request: Request):
