@@ -375,6 +375,12 @@ button.nav_item {
     padding-top: 180px;
 }
 
+.banner {
+    width: 100%;
+    padding: 15px 15px;
+    background-color: var(--primary-color)
+}
+
 .break_line {
     border-top: 1px solid var(--accent-color);
 }
@@ -495,4 +501,6 @@ button.nav_item {
     color: var(--button-text-hover);
     transform: translateY(-3px)
 }
+
+
 
