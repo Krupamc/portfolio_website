@@ -469,6 +469,7 @@ button.nav_item {
     border: 5px solid var(--accent-color);
 }
 
+
 /* Error page */
 .error_page {
     display: flex;
