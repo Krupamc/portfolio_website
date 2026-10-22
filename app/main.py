@@ -8,7 +8,7 @@ from fastapi.staticfiles import StaticFiles
 
 # Start server: uvicorn main:app --reload
 
-app = FastAPI(title="SBB Mesonet Notification System")#, lifespan=lifespan)
+app = FastAPI(title="Krupam's Portfolio")#, lifespan=lifespan)
 
 # Open Parent dir
 BASE_DIR = Path(__file__).resolve().parent
