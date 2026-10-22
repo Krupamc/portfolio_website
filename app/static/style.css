@@ -398,7 +398,7 @@ button.nav_item {
 }
 
 .subtitle {
-    font-size: 18px;
+    font-size: 28px;
     color: var(--primary-color);
     font-weight: 600;
 }
@@ -415,7 +415,7 @@ button.nav_item {
 }
 
 .paragraph p {
-    font-size: 16px;
+    font-size: 20px;
     color: var(--text-color);
     
 }

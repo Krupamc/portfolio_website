@@ -59,6 +59,10 @@ def mates(request: Request):
 def gis(request: Request):
     return templates.TemplateResponse(request, "gis.html", {"request": request, "active_page": "gis"})
 
+@app.get("/field", response_class=HTMLResponse)
+def field(request: Request):
+    return templates.TemplateResponse(request, "field.html", {"request": request, "active_page": "field"})
+
 @app.get("/services", response_class=HTMLResponse)
 def contact(request: Request):
     return templates.TemplateResponse(request, "services.html", {"request": request, "active_page": "services"})
