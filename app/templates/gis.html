@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+{% block content %}
+    <div class="main_page">
+        <div class="main_container">
+            <p></p>
+            <div class="break_line"></div>
+            <h1 class="title_header">GIS</h1>
+            <p class="subtitle">What is GIS?</p>
+            <div class="paragraph">
+                <p>
+                    Geographic Information Systems (GIS) are computer systems that captures, stores, and analysis of 
+                    geographical referenced data. It is used in almost all industries, including engineering, medical, 
+                    and enviroment fields. E.g. Apple Maps, Google Maps, etc. GIS is an important skill that can be 
+                    used in a plethora of applications and jobs. 
+                </p>
+            </div>
+            <div class="break_line_small"></div>
+            <p class="subtitle">MATES GIS</p>
+            <div class="paragraph">
+                <p>
+                    In the MATES GIS class (GMN 1242) and we learn how to use ArcGIS by Esri to manipulate, calculate,
+                    and display data through maps and spatial manipulation. Throughout the class we collected data from
+                    the field to use in projects. Below are some exmaples of work I have done in the class:
+                </p>
+            </div>
+            <div class="image_gallery">
+                <img src="{{ url_for('static', path='/icons/gis/GIS_LOGO.png')}}" class="gallery_image" style="border: 0; border-radius: 0%;" loading="lazy" alt="MATES GIS logo">
+            </div>
+            <div class="image_gallery">
+                <img src="{{ url_for('static', path='/icons/gis/halloween.jpg')}}" class="gallery_image" loading="lazy" alt="Halloween Map">
+                <img src="{{ url_for('static', path='/icons/gis/hurricane.jpg')}}" class="gallery_image" loading="lazy" alt="Hurricane Map">
+            </div>
+        </div>
+    </div>
+{% endblock %}

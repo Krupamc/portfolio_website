@@ -55,6 +55,10 @@ Allow: /
 def mates(request: Request):
     return templates.TemplateResponse(request, "mates.html", {"request": request, "active_page": "mates"})
 
+@app.get("/gis", response_class=HTMLResponse)
+def gis(request: Request):
+    return templates.TemplateResponse(request, "gis.html", {"request": request, "active_page": "gis"})
+
 @app.get("/services", response_class=HTMLResponse)
 def contact(request: Request):
     return templates.TemplateResponse(request, "services.html", {"request": request, "active_page": "services"})
