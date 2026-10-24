@@ -5,6 +5,8 @@
 #DDD8C4
 #243438
 start with: uvicorn main:app --reload --host 0.0.0.0
+disable cache: export PYTHONDONTWRITEBYTECODE=1
+
 
 :root {
     /* Primary colors */
