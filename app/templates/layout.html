@@ -103,10 +103,21 @@
                         </ul>
                     </div>
 
-                    
-
                     <!-- Reg. links-->
                     <a href="/research" class="nav_item {% if active_page == 'research' %}active{% endif %}">Independent Research</a>
+                    
+                    <!-- Interests dropdown -->
+                    <div class="nav_dropdown">
+                        <button type="button" class="nav_item submenu_toggle" aria-expanded="false" aria-controls="interests-submenu">Interests<span class=submenu_arrow aria-hidden="true">▼</span></button>
+
+                        <ul class="nav_submenu" id="interests-submenu" hidden>
+                            <li>
+                                <a href="/band" class="nav_item {% if active_page == 'band' %}active{% endif %}">Band</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Reg. links-->
                     <a href="/contact" class="nav_item {% if active_page == 'contact' %}active{% endif %}">Contact</a>
                     
 

@@ -75,6 +75,10 @@ def homelab(request: Request):
 def research(request: Request):
     return templates.TemplateResponse(request, "research.html", {"request": request, "active_page": "research"})
 
+@app.get("/band", response_class=HTMLResponse)
+def band(request: Request):
+    return templates.TemplateResponse(request, "band.html", {"request": request, "active_page": "band"})
+
 @app.get("/contact", response_class=HTMLResponse)
 def contact(request: Request):
     return templates.TemplateResponse(request, "contact.html", {"request": request, "active_page": "contact"})
