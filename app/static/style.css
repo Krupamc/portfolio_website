@@ -474,6 +474,15 @@ button.nav_item {
     align-items: start;
 }
 
+.paragraph > .image {
+    display: block;
+    width: 100%;
+    max-width: 400px;
+    height: auto;
+    margin: 20px auto;
+    box-sizing: border-box;
+}
+
 .gallery_image {
     display: block;
     width: 100%;
