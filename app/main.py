@@ -92,14 +92,33 @@ def contact(request: Request):
 
 # --- Hackatime --- 
 
-@app.get("/get/hackatime/id")
+@app.get("/hackatime/id")
 def get_id(request: Request):
-    token=cfg.hackatime_token
-    headers = {"Accept": "application/json", "Authorization": f"Bearer {token.strip()}"}
-    response = requests.get(f"https://{cfg.hackatime_host}/api/hackatime/v1/users/36740@ocvts.org", headers=headers)
+    headers = {"Accept": "application/json", "Authorization": f"Bearer {cfg.hackatime_token.strip()}"}
+    response = requests.get(f"https://{cfg.hackatime_host}/api/hackatime/v1/users/{cfg.hackatime_email}", headers=headers)
     response.raise_for_status()
     id = response.json()
     return id
 
+@app.get("/hackatime/today")
+def today_summary(request: Request):
+    headers = {"Accept": "application/json", "Authorization": f"Bearer {cfg.hackatime_token.strip()}"}
+    response = requests.get(f"https://{cfg.hackatime_host}/api/hackatime/v1/users/{cfg.hackatime_id}/statusbar/today", headers=headers)
+    response.raise_for_status()
+    return response.json()
+
+@app.get("/hackatime/week")
+def week_summary(request: Request):
+    headers = {"Accept": "application/json", "Authorization": f"Bearer {cfg.hackatime_token.strip()}"}
+    response = requests.get(f"https://{cfg.hackatime_host}/api/hackatime/v1/users/current/stats/last_7_days", headers=headers)
+    response.raise_for_status()
+    return response.json()
+
+@app.get("/hackatime/stats")
+def total_code_time(request: Request):
+    headers = {"Accept": "application/json", "Authorization": f"Bearer {cfg.hackatime_token.strip()}"}
+    response = requests.get(f"https://{cfg.hackatime_host}/api/v1/users/{cfg.hackatime_id}/stats", headers=headers)
+    response.raise_for_status()
+    return response.json()
 
     

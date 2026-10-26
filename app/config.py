@@ -12,5 +12,9 @@ develop = get_bool("DEVELOP")
 
 hackatime_token = os.getenv("HACKATIME_TOKEN", "")
 hackatime_host = os.getenv("HACKATIME_HOST", "hackatime.hackclub.com")
+hackatime_email=os.getenv("HACKATIME_EMAIL")
+hackatime_id=os.getenv("HACKATIME_ID", 35839)
+hackatime_username=os.getenv("HACKATIME_USERNAME")
+
 if not hackatime_token:
     raise RuntimeError("Hackatime Token Missing")
