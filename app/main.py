@@ -47,7 +47,10 @@ async def not_found(request: Request, exc: StarletteHTTPException):
 
 @app.get("/", response_class=HTMLResponse)
 def root(request: Request):
-    return templates.TemplateResponse(request, "home.html", {"request": request})
+    today = today_summary(request)
+    week = week_summary(request)
+    all = total_code_time(request)
+    return templates.TemplateResponse(request, "home.html", {"request": request, "today": today["data"], "week": week["data"], "all": all["data"]})
 
 @app.get("/robots.txt", response_class=PlainTextResponse, include_in_schema=False)
 def robots_txt():
@@ -121,4 +124,10 @@ def total_code_time(request: Request):
     response.raise_for_status()
     return response.json()
 
+
+def calc_stats(request: Request):
+    today = week_summary(request)
+    print(today["data"])
+
+calc_stats(Request)
     

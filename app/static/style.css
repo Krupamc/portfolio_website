@@ -403,6 +403,12 @@ button.nav_item {
     font-weight: 600;
 }
 
+.subsubtitle {
+    font-size: 24px;
+    color: var(--accent-color);
+    font-weight: 600;
+}
+
 .side_by_side {
     display: flex; 
     align-items: flex-start;
@@ -505,16 +511,6 @@ button.nav_item {
     border: 5px solid var(--accent-color);
 }
 
-
-/* Error page */
-.error_page {
-    display: flex;
-    text-align: center;
-    flex-direction: column;
-    align-items: center;
-    padding-top: 200px;
-}
-
 .button {
     display: flex;
     align-items: center;
@@ -538,6 +534,64 @@ button.nav_item {
     color: var(--button-text-hover);
     transform: translateY(-3px)
 }
+
+/* Code Widgets */
+.status_card {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    border: 3px solid var(--accent-color);
+    background-color: var(--background-color);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+    border-radius: 16px;
+    padding: 20px 18px;
+    gap: 18px;
+    width: fit-content
+}
+
+.status_subtitle {
+    font-size: 24px;
+    color: var(--primary-color);
+    font-weight: 600;
+    padding: 0;
+    margin: 0; 
+}
+
+.status_subsubtitle {
+    font-size: 22px;
+    color: var(--accent-color);
+    font-weight: 600;
+    padding: 0;
+    margin: 0; 
+}
+
+.today_bar {
+    width: 200px;
+    height: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    border: 3px solid var(--secondary-color);
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.bar_fill {
+    height: 100%;
+    flex-shrink: 0;
+    background: linear-gradient(to right, var(--primary-color), var(--background-color));
+    transition: width 0.3s ease;
+}
+/* Error page */
+.error_page {
+    display: flex;
+    text-align: center;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 200px;
+}
+
+
 
 
 

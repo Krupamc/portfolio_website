@@ -22,8 +22,53 @@
             </div>
 
             <div class="break_line_small"></div>
+
+            <!-- All Summaries -->
+            <h1 class="subtitle">Coding Summaries:</h1>
+
+            <!-- Today Status Bar -->
+            <div class="status_card">
+                <p class="status_subtitle">Daily Summary:</p>
+                <div class="paragraph"><p>{{ today["grand_total"]["text"]}} <b>({{ today["goal"]["completion_percent"] }}%)</b> </p></div>
+                {% if today["goal"]["completion_percent"] > 0 %}
+                    <div class="today_bar">
+                        <div class="bar_fill" style="width: {{ today["goal"]["completion_percent"] }}%;"></div>
+                    </div>
+                {% else %}
+                    <p class="status_subtitle">Sorry Touching Grass Today :D</p>
+                {% endif %}
+            </div>
+
+            <div class="status_card">
+                <p class="status_subtitle">Weekly:</p>
+                <div class="paragraph">
+                    <h1 class="status_subsubtitle">{{ week["human_readable_range"] }}:</h1>
+                    <p><b>Total:</b> {{ week["human_readable_total"] }}</p>
+                    <p><b>Daily Average:</b> {{ week["human_readable_daily_average"] }}</p>
+                    <p><b>Most Used Editor:</b> {{ week["editors"][0]["name"]}} ({{ week["editors"][0]["percent"]}}%)</p>
+                    <p><b>Most Coded Lanuage: </b> {{ week["languages"][0]["name"] }} ({{ week["languages"][0]["percent"] }}%)</p>
+                </div>
+            </div>
+
+            <div class="status_card">
+                <p class="status_subtitle">All Time:</p>
+                <div class="paragraph">
+                    <p><b>Total:</b> {{ all["human_readable_total"] }} </p>
+                    <!--<p><b>Daily Average:</b> {{ all["human_readable_daily_average"] }}</p>-->
+                    <p><b>Most Coded Lanuage: </b> {{ all["languages"][0]["name"] }} ({{ all["languages"][0]["percent"] }}%)</p>
+                    <p><b>Current Coding Streak: </b>{{ all["streak"]}}</p>
+                </div>
+            </div>
+            <p></p>
+            <div class="break_line_small"></div>
+            
             <p class="subtitle">High School Resumé</p>
             <iframe src="{{ url_for('static', path='pdfs/resume.pdf' )}}" frameborder="0" width="100%" height="600px" class="pdf"></iframe>
+        
+        
+        
+        
+        
         </div>
     </div>
 {% endblock %}
