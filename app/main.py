@@ -1,10 +1,17 @@
+from dotenv import load_dotenv, find_dotenv
+import config as cfg
+# Developer mode (allows env variables in desktop)
+if cfg.develop == True:
+    load_dotenv(find_dotenv(), override=False)
+
+from pathlib import Path
 from fastapi import FastAPI, Request, HTTPException
 from fastapi.responses import HTMLResponse, RedirectResponse, PlainTextResponse
-from pathlib import Path
 from starlette.exceptions import HTTPException as StarletteHTTPException
 from fastapi.exception_handlers import http_exception_handler
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
+import requests
 
 # Start server: uvicorn main:app --reload
 
@@ -82,3 +89,17 @@ def band(request: Request):
 @app.get("/contact", response_class=HTMLResponse)
 def contact(request: Request):
     return templates.TemplateResponse(request, "contact.html", {"request": request, "active_page": "contact"})
+
+# --- Hackatime --- 
+
+@app.get("/get/hackatime/id")
+def get_id(request: Request):
+    token=cfg.hackatime_token
+    headers = {"Accept": "application/json", "Authorization": f"Bearer {token.strip()}"}
+    response = requests.get(f"https://{cfg.hackatime_host}/api/hackatime/v1/users/36740@ocvts.org", headers=headers)
+    response.raise_for_status()
+    id = response.json()
+    return id
+
+
+    
