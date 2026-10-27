@@ -62,7 +62,7 @@
             <nav class="menu_bar" aria-label="Main navigation">
                 <!-- Logo link -->
                 <a href="/" class="logo_link">
-                    <img src="{{ url_for('static', path='/icons/logo.png') }}" alt="logo">
+                    <img src="{{ url_for('static', path='/icons/logo.jpg') }}" alt="logo">
                     <p>Krupam Patel Portfolio</p>
                 </a>
 
@@ -113,6 +113,9 @@
                         <ul class="nav_submenu" id="interests-submenu" hidden>
                             <li>
                                 <a href="/band" class="nav_item {% if active_page == 'band' %}active{% endif %}">Band</a>
+                            </li>
+                            <li>
+                                <a href="/theater" class="nav_item {% if active_page == 'theater' %}active{% endif %}">Audio, Lighting, and Theater</a>
                             </li>
                         </ul>
                     </div>

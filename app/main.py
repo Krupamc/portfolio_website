@@ -89,6 +89,10 @@ def research(request: Request):
 def band(request: Request):
     return templates.TemplateResponse(request, "band.html", {"request": request, "active_page": "band"})
 
+@app.get("/theater", response_class=HTMLResponse)
+def theater(request: Request):
+    return templates.TemplateResponse(request, "theater.html", {"request": request, "active_page": "theater"})
+
 @app.get("/contact", response_class=HTMLResponse)
 def contact(request: Request):
     return templates.TemplateResponse(request, "contact.html", {"request": request, "active_page": "contact"})
