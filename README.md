@@ -2,7 +2,7 @@
 A little portfolio website built to showcase projects I have created, what I have done in school, and advertise my small tech repair business. (WIP)
 ![Code Time](https://hackatime.hackclub.com/api/v1/badge/U0B7G9Z2X7C/Krupamc/portfolio_website)
 ---
-<img width="2525" height="1050" alt="image" src="https://github.com/user-attachments/assets/d78e3839-458e-41cb-810d-5652ac056537" />
+<img width="2013" height="1217" alt="image" src="https://github.com/user-attachments/assets/809c98df-7e5d-4d62-bfa1-65b36f41e3c0" />
 
 ## What is it?
 This is a small mostly static (for now) website built using FastAPI, HTML, CSS, JS, and Jinja2 Templates. It is hosted using docker (instructions below). 
@@ -16,6 +16,8 @@ This is a small mostly static (for now) website built using FastAPI, HTML, CSS, 
   - All time: Total time, most coded language, and the current coding streak.
   - Hackatime Widget: Shows a graph of my coding time by languages.
 - My resume
+<img width="1247" height="912" alt="image" src="https://github.com/user-attachments/assets/47070df9-52af-465e-8706-08e5dc77b479" />
+
 ### MATES (My School):
 #### MATES? 
 - Logos
@@ -32,6 +34,7 @@ This is a small mostly static (for now) website built using FastAPI, HTML, CSS, 
 - List of what I do and some info.
 - List to contact page.
 - Pictures of some stuff I do
+<img width="1560" height="1062" alt="image" src="https://github.com/user-attachments/assets/bd523436-2abc-4c85-9454-9f6fb04270eb" />
 #### Homelab:
 - What is a home lab?
 - Dropdown with my server specs.
@@ -39,6 +42,8 @@ This is a small mostly static (for now) website built using FastAPI, HTML, CSS, 
 ### Indepedent Research:
 - My Mentoring experience
 - Picture of my research project with all places I took it and awards I won. Links and github repos where applicable. (I have one for sophomore and junior year)
+<img width="1473" height="1035" alt="image" src="https://github.com/user-attachments/assets/84c0cd75-99f9-453f-a6b1-719488c9f033" />
+
 ### Interests:
 #### Band:
 - My story about band and why I love it
@@ -52,15 +57,12 @@ Has several buttons that take you to:
 - My email
 - Github account
 - LinkedIn page
-<img width="1797" height="1022" alt="image" src="https://github.com/user-attachments/assets/5dfad6c4-00fc-40b7-a71a-89d402300fb1" />
+<img width="793" height="541" alt="image" src="https://github.com/user-attachments/assets/fca02a87-0b53-495e-b185-e1714d6dac7f" />
+
 
 ## PLANNED Pages
 ### School page:
-With sub pages for my extracurricular involvement and leadership roles, my GIS skills, field and research experience
-### Research:
-Show my research projects and link to them.
-### Interests page:
-Have several sub pages with links to band, theatre, and all the other stuff I do.
+With sub pages for my extracurricular involvement and leadership roles
 ### Page with my hackatime data?
 ### And more!
 
