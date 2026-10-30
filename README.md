@@ -1,5 +1,6 @@
 # Website Portfolio
 A little portfolio website built to showcase projects I have created, what I have done in school, and advertise my small tech repair business. (WIP)
+![Code Time](https://hackatime.hackclub.com/api/v1/badge/U0B7G9Z2X7C/Krupamc/portfolio_website)
 ---
 <img width="2525" height="1050" alt="image" src="https://github.com/user-attachments/assets/d78e3839-458e-41cb-810d-5652ac056537" />
 
