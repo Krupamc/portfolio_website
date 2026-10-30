@@ -8,8 +8,45 @@ A little portfolio website built to showcase projects I have created, what I hav
 This is a small mostly static (for now) website built using FastAPI, HTML, CSS, JS, and Jinja2 Templates. It is hosted using docker (instructions below). 
 
 ## Pages:
-### Home Page:
-About Me section with a description (needs photos)
+### Home:
+- About Me section with a description
+- Coding Widgets
+  - Daily: Shows the time coded today out of my goal (currently four hours) with a progress bar that fills up.
+  - Weekly: Stats such as total, daiily average, and most used editor/language
+  - All time: Total time, most coded language, and the current coding streak.
+  - Hackatime Widget: Shows a graph of my coding time by languages.
+- My resume
+### MATES (My School):
+#### MATES? 
+- Logos
+- Link to the MATES website
+- Dropdowns with what classes I have taken.
+#### GIS:
+- Explaination of the class and where I have been with pictures of my classwork.
+#### Field Experience:
+- Explaination of all my field classes and what skills I learned.
+- PDFs of some of my write-ups from class.
+- Pictures of the fields.
+### My Services & Homelab:
+#### Services:
+- List of what I do and some info.
+- List to contact page.
+- Pictures of some stuff I do
+#### Homelab:
+- What is a home lab?
+- Dropdown with my server specs.
+- List of all the services I host (links where applicable)
+### Indepedent Research:
+- My Mentoring experience
+- Picture of my research project with all places I took it and awards I won. Links and github repos where applicable. (I have one for sophomore and junior year)
+### Interests:
+#### Band:
+- My story about band and why I love it
+- Pictures
+#### Audio Video, Lighting, and Theater:
+- What I do
+- Dropdown of all shows I have lighted/been in.
+- Picture
 ### Contact Page:
 Has several buttons that take you to:
 - My email
