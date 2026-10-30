@@ -131,7 +131,6 @@ def total_code_time(request: Request):
 
 def calc_stats(request: Request):
     today = week_summary(request)
-    print(today["data"])
 
 calc_stats(Request)
     
