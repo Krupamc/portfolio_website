@@ -372,7 +372,10 @@ button.nav_item {
 .paragraph p {
     font-size: 20px;
     color: var(--text-color);
-    
+}
+
+.paragraph ul {
+    font-size: 20px;
 }
 
 .list details {

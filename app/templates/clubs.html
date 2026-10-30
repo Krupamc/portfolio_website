@@ -1,9 +1,10 @@
 {% extends "layout.html" %}
-{% block contend %}
+{% block content %}
 <div class="main_page">
     <div class="main_container">
         <p></p>
         <div class="break_line"></div>
+        <h1 class="title_header">Extracurriculars</h1>
         <div class="paragraph">
             <p>
                 I do so many extracurriculars, it is hard to keep track! 
@@ -11,16 +12,18 @@
             </p>
             <ul>
                 <li>MATES TV: Monthly video segments detailing current events at MATES.</li>
-                <li>YearBook Club</li>
+                <li>Yearbook ClubL I take photos at most school events</li>
                 <li>Robotics: Coder for our Robotics team. We compete in the <i>First</i> Tech Challenge Robotics Circuit</li>
                 <li>Games Club: I am a nerd, of course I game.</li>
                 <li>TSA: Technology Student Assocication. I co-founded our chapter at MATES and am the Vice President. I focus on helping people with their projects and teaching.</li>
                 <li>MATES Orchestra: I also helped start this "club". Coffee House is a yearly event held, containg the MATES Talent Show. Plenty of musicians were present but never together. This club brings together those musicians to play a couple of pieces together. I am the events coordinator and help organize and run practices <a href="/band" style="text-decoration: underline;">(See my band page)</a></li>
+                <li><a href="/theater" style="text-decoration: underline;">Theatre</a>: I do lighting for High School and Middle School Productions at Barnegat.</li>
+                <li><a href="/band" style="text-decoration: underline;">Band</a>: I am the center marimba in the Barnegat High School Marching band. I also play in regular seasonal concerts.</li>
             </ul>
         </div>
 
         <div class="image_gallery">
-            <img src="{{ url_for('static', path='/icons/clubs/robots.jpg' )}}" class="gallery_image" loading="lazy" alt="Robotics">
+            <img src="{{ url_for('static', path='/icons/clubs/robot.jpg' )}}" class="gallery_image" loading="lazy" alt="Robotics">
             <img src="{{ url_for('static', path='/icons/clubs/band.JPG' )}}" class="gallery_image" loading="lazy" alt="MATES Orchestra">
         </div>
 

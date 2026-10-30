@@ -73,6 +73,10 @@ def gis(request: Request):
 def field(request: Request):
     return templates.TemplateResponse(request, "field.html", {"request": request, "active_page": "field"})
 
+@app.get("/extracurriculars", response_class=HTMLResponse)
+def extracurriculars(request: Request):
+    return templates.TemplateResponse(request, "clubs.html", {"request": request, "active_page": "clubs"})
+
 @app.get("/services", response_class=HTMLResponse)
 def contact(request: Request):
     return templates.TemplateResponse(request, "services.html", {"request": request, "active_page": "services"})
