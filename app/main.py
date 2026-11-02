@@ -58,6 +58,19 @@ def robots_txt():
 User-agent: *
 
 Allow: /
+Allow: /mates
+Allow: /gis
+Allow: /field
+Allow: /extracurriculars
+Allow: /services
+Allow: /homelab
+Allow: /website
+Allow: /work
+Allow: /volunteer
+Allow: /research
+Allow: /band
+Allow: /theater
+Allow: /contact
 """
 
 @app.get("/mates", response_class=HTMLResponse)
@@ -83,6 +96,10 @@ def contact(request: Request):
 @app.get("/homelab", response_class=HTMLResponse)
 def homelab(request: Request):
     return templates.TemplateResponse(request, "homelab.html", {"request": request, "active_page": "homelab"})
+
+@app.get("/website", response_class=HTMLResponse)
+def website(request: Request):
+    return templates.TemplateResponse(request, "website.html", {"request": request, "active_page": "website"})
 
 @app.get("/work", response_class=HTMLResponse)
 def work(request: Request):
