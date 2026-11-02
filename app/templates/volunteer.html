@@ -1,0 +1,50 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="main_page">
+    <div class="main_container">
+        <p></p>
+        <div class="break_line"></div>
+        <h1 class="title_header">Volunteering</h1>
+
+        <div class="paragraph">
+            <h2 class="subtitle">Library:</h2>
+            <p>
+                I have been volenteering at the library since I was 12! 
+                (I actually started the month before the actual 
+                age requirement cause of how much I wanted to)
+                The library has always been my happy place. I love reading,
+                and you would see me come out with 14+ books a week.
+                (I wish I had the time now) This was my way of giving back.
+                During the school year, I volunteered at the library for 
+                2 hours every wednesday up until last year (2025). I cut to
+                a hour a week due to how busy I was. I am also apart of SAIL
+                (Service and Achievement in the Library) during the summers. 
+                I do anything from cleaning discs to making displays!
+            </p>
+            <img src="{{ url_for('static', path='/icons/library.JPG')}}" class="image" loading="lazy" alt="Ocean County Library Barnegat Branch">
+
+
+            <h2 class="subtitle">Temple:</h2>
+            <p>
+                I started volenteering at the temple when I was ~10 years old.
+                I would (try to when I can now) come every Saturday and help with
+                cooking, serving food, watching the kids, teaching, and more!
+            </p>
+            <img src="{{ url_for('static', path='/icons/mandir.JPG')}}" class="image" loading="lazy" alt="My Temple">
+            
+            <h2 class="subtitle">MATES Events:</h2>
+            <p>
+                I also volunteer at many MATES events as they come. I have done 
+                audio, lighting, photography for events such as dances and our 
+                Coffee House (our talent show and hang-out event). I also 
+                help with research events such as NJAS Junior Academy 
+                and the Charting a Course event by Save Barnegat Bay.
+            </p>
+
+            <p></p>
+            <h2 class="subtitle" style="text-align: center;">Have a cool event that I could volunteer at?</h2>
+            <a href="/contact" class="button">Contact Me about it!</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

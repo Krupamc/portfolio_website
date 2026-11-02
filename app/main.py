@@ -88,6 +88,10 @@ def homelab(request: Request):
 def work(request: Request):
     return templates.TemplateResponse(request, "work.html", {"request": request, "active_page": "work"})
 
+@app.get("/volunteer", response_class=HTMLResponse)
+def volunteer(request: Request):
+    return templates.TemplateResponse(request, "volunteer.html", {"request": request, "active_page": "volunteer"})
+
 @app.get("/research", response_class=HTMLResponse)
 def research(request: Request):
     return templates.TemplateResponse(request, "research.html", {"request": request, "active_page": "research"})

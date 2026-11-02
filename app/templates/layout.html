@@ -62,7 +62,7 @@
             <nav class="menu_bar" aria-label="Main navigation">
                 <!-- Logo link -->
                 <a href="/" class="logo_link">
-                    <img src="{{ url_for('static', path='/icons/logo.jpg') }}" alt="logo">
+                    <img src="{{ url_for('static', path='/icons/logo.jpg') }}" alt="logo" loading="eager">
                     <p>Krupam Patel Portfolio</p>
                 </a>
 
@@ -115,7 +115,7 @@
                                 <a href="/work" class="nav_item {% if active_page == 'work' %}active{%endif%}">Work & Internships</a>
                             </li>
                             <li>
-                                <a href="/internships" class="nav_item {% if active_page == 'internships'%}active{% endif %}">Internships</a>
+                                <a href="/volunteer" class="nav_item {% if active_page == 'volunteer'%}active{% endif %}">Volunteering</a>
                             </li>
                         </ul>
                     </div>
