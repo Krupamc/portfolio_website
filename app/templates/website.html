@@ -4,6 +4,26 @@
     <div class="main_container">
         <div class="paragraph">
             <h1 class="title_header">This Website?</h1>
+            <div class="paragraph">
+                <h2 class="subtitle">What is it?</h2>
+                <p>
+                    This website is something I have been meaning to make
+                    for a while. A place to showcase my skills and 
+                    all of my work. But procrastination ran its course...
+                    I needed to create a website portfolio for my GIS class.
+                    <a href="/gis" style="text-decoration: underline;">(check out more here)</a>
+                    and instead of making it in Google sites, this is what you get.
+                </p>
+
+                <h2 class="subtitle">Nerd-Specs:</h2>
+                <p>
+                    This website is a FastAPI server using Jinja2 
+                    templates running using docker compose on my homelab
+                    <a href="/homelab" style="text-decoration: underline;">(shameless plug?)</a>"
+                    in a debain VM.
+                </p>
+                <img src="{{ url_for('static', path='/icons/website_code.jpg')}}" class="image" loading="lazy" alt="Code for website">
+            </div>
         </div>
     </div>
 </div>
