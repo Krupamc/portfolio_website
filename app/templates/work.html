@@ -4,6 +4,59 @@
     <div class="main_container">
         <p></p>
         <div class="break_line"></div>
+        <h1 class="title_header">My Working Experiences and Internships</h1>
+        <div class="paragraph">
+            <h2 class="subtitle">UPS Store:</h2>
+            <p>
+                Retail Associate at the Manahawkin & Barnegat UPS Stores from February 2025 - January 2026.
+            </p>
+            <p>
+                Operated registers, shipping, returns, customer service, opening/closing stores, and inventory.
+            </p>
+            <img src="{{ url_for('static', path='/icons/badges_ups.JPG')}}" class="image" alt="My UPS Name Badge" style="width: 400px; height: 200px; object-fit: cover; object-position: center;">
+            
+
+            <h2 class="subtitle">Odd Jobs and Gigs</h2>
+            <p>
+                I have a small business where I do tech repairs and setups and 
+                more! I also do photography, grpahic design,
+                <a href="/services">and more!</a>
+                I have done a few odd jobs for this business locally as well as photographed a baby shower.
+            </p>
+
+            <h2 class="subtitle">Internship at Save Barnegat Bay:</h2>
+            <p>
+                Save Barnegat Bay (SBB) is a non-profit organization in Toms River, NJ. They are awesome, 
+                <a href="https://savebarnegatbay.org" target="_blank" referrerpolicy="noopener noreferrer" style="text-decoration: underline;">check them out!</a>
+                I interned over the 2026 summer, where I worked on the SBB Mesonet,
+                the weather stations, and whatever was going around the Ecocenter!
+                I created a mesonet weather-station monitoring and data-analysis 
+                platform. Weather observations and station status comes from Weather 
+                Underground, it stores historical records, and sends, outage, recovery, 
+                and reminder emails to different recipients. The website presents 
+                the collected data in a easy-format with dashboards, graphs, 
+                and downloadable data. The website also allows use of 
+                administrative tools for managing stations, accounts, 
+                emails, and more! The website can easily be setup for any mesonet.
+                <a href="https://sbb.krupamlab.com" target="_blank" referrerpolicy="noopener noreferrer" style="text-decoration: underline;">Try the website!</a>
+            </p>
+            <a class="button" href="https://github.com/Krupamc/Weather-underground-status-scraper" target="_blank" rel="noopener noreferrer" aria-label="View source code on GitHub">
+                <img src="{{ url_for('static', path='/icons/github_logo.png')}}" alt="" class="site_footer_icon">
+                <span>View source on GitHub</span>
+            </a>
+            <img src="{{ url_for('static', path='/icons/sbb.jpg')}}" class="image" loading="lazy" alt="My Mesonet Website">
+
+            <h2 class="subtitle">Internship at NJCCIC:</h2>
+            <p>
+                NJCCIC is the New Jersey Cybersecurity and Communications Integration Cell.
+                I did the Advanced Cybersecurity High School Internship Program where we 
+                created a research project, learned Cybersecurity techniques and more! 
+                I also was one of the graphic designers and editors of the 
+                <a href="https://www.cyber.nj.gov/connect/cyber-blog/student-newsletters" target="_blank" referrerpolicy="noopener noreferrer" style="text-decoration: underline;">NJCCIC Student Newsletters.</a>
+                I worked from July 2025 - June 2026.
+            </p>
+            <img src="{{ url_for('static', path='/icons/njccic-newsletter.jpg')}}" class="image" loading="lazy" alt="Monthly Newsletter">
+        </div>
     </div>
 </div>
 {% endblock %}

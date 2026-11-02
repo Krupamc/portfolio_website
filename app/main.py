@@ -84,6 +84,10 @@ def contact(request: Request):
 def homelab(request: Request):
     return templates.TemplateResponse(request, "homelab.html", {"request": request, "active_page": "homelab"})
 
+@app.get("/work", response_class=HTMLResponse)
+def work(request: Request):
+    return templates.TemplateResponse(request, "work.html", {"request": request, "active_page": "work"})
+
 @app.get("/research", response_class=HTMLResponse)
 def research(request: Request):
     return templates.TemplateResponse(request, "research.html", {"request": request, "active_page": "research"})
