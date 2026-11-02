@@ -56,7 +56,6 @@ def root(request: Request):
 def robots_txt():
     return """\
 User-agent: *
-Disallow: /users/
 
 Allow: /
 """
