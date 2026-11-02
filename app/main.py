@@ -121,6 +121,10 @@ def band(request: Request):
 def theater(request: Request):
     return templates.TemplateResponse(request, "theater.html", {"request": request, "active_page": "theater"})
 
+@app.get("/reflection", response_class=HTMLResponse)
+def reflection(request: Request):
+    return templates.TemplateResponse(request, "reflection.html", {"request": request, "active_page": "reflection"})
+
 @app.get("/contact", response_class=HTMLResponse)
 def contact(request: Request):
     return templates.TemplateResponse(request, "contact.html", {"request": request, "active_page": "contact"})
