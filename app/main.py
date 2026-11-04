@@ -131,13 +131,13 @@ def contact(request: Request):
 
 # --- Hackatime --- 
 
-@app.get("/hackatime/id")
-def get_id(request: Request):
-    headers = {"Accept": "application/json", "Authorization": f"Bearer {cfg.hackatime_token.strip()}"}
-    response = requests.get(f"https://{cfg.hackatime_host}/api/hackatime/v1/users/{cfg.hackatime_email}", headers=headers)
-    response.raise_for_status()
-    id = response.json()
-    return id
+# @app.get("/hackatime/id")
+# def get_id(request: Request):
+#     headers = {"Accept": "application/json", "Authorization": f"Bearer {cfg.hackatime_token.strip()}"}
+#     response = requests.get(f"https://{cfg.hackatime_host}/api/hackatime/v1/users/{cfg.hackatime_email}", headers=headers)
+#     response.raise_for_status()
+#     id = response.json()
+#     return id
 
 @app.get("/hackatime/today")
 def today_summary(request: Request):
