@@ -240,7 +240,7 @@ button.nav_item {
     background-color: var(--surface-color);
 }
 
-/* Mobile: expand inside the hamburger panel */
+/* Mobile expand inside the hamburger panel */
 @media (max-width: 900px) {
     .nav_dropdown {
         width: 100%;
