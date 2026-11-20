@@ -415,7 +415,6 @@ button.nav_item {
     color: var(--primary-color);
 }
 
-
 /* Media */
 .image {
     border-radius: 16px;
@@ -627,6 +626,10 @@ button.nav_item {
         min-width: 0;
     }
 
+}
+
+.text_underline {
+    text-decoration: underline;
 }
 
 

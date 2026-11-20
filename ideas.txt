@@ -1,5 +1,4 @@
 - photos page
 - add calender integration to see when I am busy or not
 - add hackclub page
-- add internships
 - add link to this paghe on all website. Link all of my websites of here too
