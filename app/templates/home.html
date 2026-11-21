@@ -67,7 +67,42 @@
             <iframe src="https://github-readme-stats.hackclub.dev/api/wakatime?username=35839&api_domain=hackatime.hackclub.com&theme=solarized-light&custom_title=My+Hackatime+Stats&layout=compact&cache_seconds=0&langs_count=8" width="100%" height="500" style="border: none"></iframe>
             <p></p>
             <div class="break_line_small"></div>
-            
+
+            <!-- Calendar -->
+            <div class="availability_widget">
+                <h2>Today's Schedule</h2>
+                <p id="calendar-status" role="status">Checking my calendar...</p>
+            </div>
+
+            <script>
+            (async () => {
+                const status = document.getElementById("calendar-status");
+
+                try {
+                    const response = await fetch ("/api/calendar-status", {cache: "no-store"});
+                    if (!response.ok) {
+                        throw new Error("Calendar unavailable");
+                    }
+
+                    const data = await response.json();
+
+                    if (data.has_plans === true) {
+                        status.textContent = "I have something scheduled today.";
+                    } else if (data.has_plans === false) {
+                        status.textContent = "No busy events on my calendar today.";
+                    } else {
+                        throw new Error("Unknown calendar status");
+                    }
+
+                } catch {
+                    status.textContent = "My calendar status is currently unavailable."
+                }
+            })();
+            </script>
+
+
+            <!-- Resume -->
+            <div class="break_line_small"></div>
             <p class="subtitle">High School Resumé</p>
             <iframe src="{{ url_for('static', path='pdfs/resume.pdf' )}}" frameborder="0" width="100%" height="600px" class="pdf"></iframe>
         

@@ -5,3 +5,4 @@ app/__pycache__/main.cpython-313.pyc
 .venv
 .venv/
 .env
+app/google-calendar.json

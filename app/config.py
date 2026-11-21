@@ -16,5 +16,9 @@ hackatime_email=os.getenv("HACKATIME_EMAIL")
 hackatime_id=os.getenv("HACKATIME_ID", 35839)
 hackatime_username=os.getenv("HACKATIME_USERNAME")
 
+google_calendar_id = os.getenv("GOOGLE_CALENDAR_ID", "")
+#google_service_account_file = os.getenv("GOOGLE_SERVICE")
+calendar_timezone = os.getenv("CALENDAR_TIMEZONE", "")
+
 if not hackatime_token:
     raise RuntimeError("Hackatime Token Missing")

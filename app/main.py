@@ -6,12 +6,18 @@ if cfg.develop == True:
 
 from pathlib import Path
 from fastapi import FastAPI, Request, HTTPException
-from fastapi.responses import HTMLResponse, RedirectResponse, PlainTextResponse
+from fastapi.responses import HTMLResponse, RedirectResponse, PlainTextResponse, JSONResponse
 from starlette.exceptions import HTTPException as StarletteHTTPException
 from fastapi.exception_handlers import http_exception_handler
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
-import requests
+
+from datetime import datetime, time, timedelta
+from zoneinfo import ZoneInfo
+import requests, os
+
+from google.oauth2 import service_account
+from google.auth.transport.requests import AuthorizedSession
 
 # Start server: uvicorn main:app --reload
 
@@ -164,9 +170,60 @@ def total_code_time(request: Request):
     response.raise_for_status()
     return response.json()
 
+# --- Google API for calender ---
+@app.get("/api/calendar-status", include_in_schema=False)
+def calendar_status():
+    headers = {"Cache-Control": "no-store"}
+
+    try:
+        calendar_id = cfg.google_calendar_id
+        timezone = ZoneInfo(cfg.calendar_timezone)
+
+        today = datetime.now(timezone).date()
+        start = datetime.combine(today, time.min, tzinfo=timezone)
+        end = datetime.combine(today + timedelta(days=1), time.min, tzinfo=timezone)
+
+        credentials = (service_account.Credentials.from_service_account_file( BASE_DIR / "google-calendar.json", scopes=["https://www.googleapis.com/auth/calendar.events.freebusy"]))
+
+        with AuthorizedSession(credentials) as session:
+            response = session.post(
+                "https://www.googleapis.com/calendar/v3/freeBusy",
+                json={
+                    "timeMin": start.isoformat(),
+                    "timeMax": end.isoformat(),
+                    "timeZone": str(timezone),
+                    "items": [{"id": calendar_id}]
+                },
+                timeout=10,
+            )
+            response.raise_for_status()
+            result = response.json()
+
+        calendar = result.get("calendars", {}).get(calendar_id)
+
+        if (not isinstance(calendar, dict) or calendar.get("errors") or not isinstance(calendar.get("busy"), list)):
+            print("calendar availablity cannot be read")
+            return JSONResponse({"has_plans": None}, status_code=503, headers=headers)
+            
+
+        return JSONResponse(
+            {
+                "date": today.isoformat(),
+                "has_plans": bool(calendar["busy"]),
+                
+            },
+            headers=headers
+        )
+
+    except Exception:
+        print("Calendar status lookup failed.")
+        return JSONResponse(
+            {"has_plans": None},
+            status_code=503,
+            headers=headers
+        )
 
 def calc_stats(request: Request):
     today = week_summary(request)
 
 calc_stats(Request)
-    

@@ -1,3 +1,3 @@
 - photos page
 - add calender integration to see when I am busy or not
-- add link to this paghe on all website. Link all of my websites of here too
+
