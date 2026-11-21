@@ -6,13 +6,14 @@ if cfg.develop == True:
 
 from pathlib import Path
 from fastapi import FastAPI, Request, HTTPException
-from fastapi.responses import HTMLResponse, RedirectResponse, PlainTextResponse, JSONResponse
+from fastapi.responses import HTMLResponse, RedirectResponse, Response, PlainTextResponse, JSONResponse
 from starlette.exceptions import HTTPException as StarletteHTTPException
 from fastapi.exception_handlers import http_exception_handler
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
 
 from datetime import datetime, time, timedelta
+from time import monotonic
 from zoneinfo import ZoneInfo
 import requests, os
 
@@ -33,6 +34,12 @@ FONTS_DIR = STATIC_DIR / "fonts"
 # Static and Templates
 templates = Jinja2Templates(directory=TEMPLATES_DIR)
 app.mount("/static", StaticFiles(directory=STATIC_DIR), name="static")
+
+# Immich Cache
+_gallery_cache = {
+    "expires": 0,
+    "asset_ids": []
+}
 
 # For any http error, send them to a specific error page
 @app.exception_handler(StarletteHTTPException)
@@ -222,6 +229,75 @@ def calendar_status():
             status_code=503,
             headers=headers
         )
+
+# ---Immich Background---
+# Get asset ids
+def get_gallery_asset_ids():
+    # Refresh every 5 mins
+    if monotonic() < _gallery_cache["expires"]:
+        return _gallery_cache["asset_ids"]
+
+    try:
+
+        response = requests.get(
+            f"{cfg.immich_url}/api/albums/{cfg.immich_album_id}",
+            headers={
+                "x-api-key": cfg.immich_api_key
+            },
+            timeout=10,
+        )
+        response.raise_for_status()
+
+        assets = response.json().get("assets", [])
+
+        #only photos
+        asset_ids = [
+            asset["id"]
+            for asset in assets
+            if asset.get("type") == "IMAGE"
+        ][:20]
+
+        _gallery_cache["asset_ids"] = asset_ids
+        _gallery_cache["expires"] = monotonic() + 86400
+
+        return asset_ids
+    except (requests.RequestException, ValueError, KeyError, TypeError):
+        raise HTTPException(status_code=503, detail="Photo Gallery is Currently Unavailable.")
+
+@app.get("/api/gallery", include_in_schema=False)
+def gallery_photos():
+    return {
+        "photos": [
+            {"url": f"/api/gallery/{asset_id}/images"}
+            for asset_id in get_gallery_asset_ids()
+        ]
+    }
+
+# Do not public requiest images
+@app.get("/api/galery/{asset_id}/image", include_in_schema=False)
+def gallery_image(asset_id: str):
+    if asset_id not in get_gallery_asset_ids():
+        raise HTTPException(status_code=404, detail="Photo not Found.")
+
+    try:
+        response = requests.get(
+            f"{cfg.immich_url}/api/assets/{asset_id}/thumbnail",
+            headers={
+                "x-api-key": cfg.immich_api_key,
+            },
+            timeout=15,
+        )
+        response.raise_for_status()
+
+        content_type = response.headers.get("Content-Type", "").split(";")[0].lower()
+        if not content_type.startswith("image/"):
+            raise ValueError("Unexpected image response.")
+
+        return Response(content=response.content, media_type=content_type, headers={"Cache-Controls": "public, max-age=86400"})
+
+    except (requests.RequestException, ValueError, KeyError):
+        raise HTTPException(status_code=503, detail="Photo is currently unavailable.")
+
 
 def calc_stats(request: Request):
     today = week_summary(request)

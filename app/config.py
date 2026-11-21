@@ -20,5 +20,9 @@ google_calendar_id = os.getenv("GOOGLE_CALENDAR_ID", "")
 #google_service_account_file = os.getenv("GOOGLE_SERVICE")
 calendar_timezone = os.getenv("CALENDAR_TIMEZONE", "")
 
+immich_url = os.getenv("IMMICH_URL", "")
+immich_api_key = os.getenv("IMMICH_API_KEY", "")
+immich_album_id = os.getenv("IMMICH_ALBUM_ID", "")
+
 if not hackatime_token:
     raise RuntimeError("Hackatime Token Missing")
