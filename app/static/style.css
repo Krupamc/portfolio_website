@@ -666,14 +666,11 @@ button.nav_item {
     display: flex;
     flex-wrap: nowrap;
     gap: 0;
-
     width: 100%;
     padding: 0;
-
     overflow-x: auto;
     overflow-y: hidden;
     scroll-snap-type: x mandatory;
-
     border-radius: 16px;
     scrollbar-width: none;
 }
@@ -685,19 +682,15 @@ button.nav_item {
 .photo_carousel img {
     display: block;
     flex: 0 0 100%;
-
     width: 100%;
     min-width: 0;
     max-width: 100%;
     height: 400px;
-
     object-fit: cover;
     object-position: center;
-
     border: 4px solid var(--accent-color);
     border-radius: 16px;
     box-sizing: border-box;
-
     scroll-snap-align: start;
 }
 
@@ -707,7 +700,6 @@ button.nav_item {
     align-items: center;
     justify-content: center;
     gap: 8px;
-
     margin-top: 16px;
 }
 

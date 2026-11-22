@@ -221,7 +221,6 @@ def calendar_status():
             {
                 "date": today.isoformat(),
                 "has_plans": bool(calendar["busy"]),
-                
             },
             headers=headers
         )
@@ -247,7 +246,7 @@ def get_gallery_asset_ids():
             json={
                 "albumIds": [cfg.immich_album_id],
                 "type": "IMAGE",
-                "size": 20,
+                #"size": 100,
                 "withExif": False,
                 "withPeople": False,
             },
@@ -268,7 +267,7 @@ def get_gallery_asset_ids():
         ]
 
         _gallery_cache["asset_ids"] = asset_ids
-        _gallery_cache["expires"] = monotonic() + 300 # 86400 or smth
+        _gallery_cache["expires"] = monotonic() + 86400 # 86400 or smth
 
         return asset_ids
 
@@ -310,7 +309,7 @@ def gallery_image(asset_id: str):
         if not content_type.startswith("image/"):
             raise ValueError("Unexpected image response.")
 
-        return Response(content=response.content, media_type=content_type, headers={"Cache-Controls": "public, max-age=300"})
+        return Response(content=response.content, media_type=content_type, headers={"Cache-Controls": "public, max-age=86400"})
 
     except (requests.RequestException, ValueError, KeyError):
         raise HTTPException(status_code=503, detail="Photo is currently unavailable.")
