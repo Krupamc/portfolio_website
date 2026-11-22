@@ -8,20 +8,17 @@
             <h1 class="title_header">About Me:</h1>
 
             <!-- Image carasoul from immich-->
-            <section class="photo_section" aria-labelledby="photo-heading">
-                <div class="photo_heading">
-                    <h2 id="photo-heading" class="subtitle">A Few Moments...</h2>
-                
-                    <div class="photo_controls">
-                        <button type="button" id="photos-prev" aria-label="Scroll Photos Left" aria-controls="photo-carousel" disabled><span aria-hidden="true">←</span></button>
-                        <button type="button" id="photos-pause" aria-label="Start/Stop Scrolling" aria-controls="photo-carousel" disabled><span aria-hidden="true">▶</span></button>
-                        <button type="button" id="photos-next" aria-label="Scroll Photos Right" aria-controls="photo-carousel" disabled ><span aria-hidden="true">→</span></button>
-                    </div>
+            <section class="photo_section" aria-label="A few moments from my life">
+                <div class="photo_carousel" id="photo-carousel" tabindex="0" role="region" aria-label="Photo gallery"></div>
+                <div class="photo_controls">
+                    <button type="button" id="photos-prev" aria-label="Scroll Photos Left" aria-controls="photo-carousel" disabled><span aria-hidden="true">←</span></button>
+                    <button type="button" id="photos-pause" aria-label="Start/Stop Scrolling" aria-controls="photo-carousel" disabled><span aria-hidden="true">▶</span></button>
+                    <button type="button" id="photos-next" aria-label="Scroll Photos Right" aria-controls="photo-carousel" disabled ><span aria-hidden="true">→</span></button>
                 </div>
 
                 <p id="photo-status" role="status">Loading photos...</p>
             
-                <div class="photo_carousel" id="photo-carousel" tabindex="0" role="region" aria-label="Photo gallery"></div>
+                
             </section>
 
             <script>
@@ -67,10 +64,13 @@
                     });
 
                     const nextIndex = (currentIndex + direction + photos.length) % photos.length;
-                
+                    
+                    const wrapping = (direction > 0 && currentIndex === photos.length - 1) || (direction < 0 && currentIndex === 0);
+
                     carousel.scrollTo({
                         left: positions[nextIndex],
-                        behavior: reducedMotion.matches ? "instant" : "smooth"
+                        behavior:
+                            reducedMotion.matches || wrapping ? "instant" : "smooth"
                     });
                 }
 
