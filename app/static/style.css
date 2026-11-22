@@ -652,3 +652,72 @@ button.nav_item {
     color: var(--text-color);
     font-size: 18px
 }
+
+/* Immich photo carousel */
+.photo_section {
+    margin: 32px 0;
+}
+
+.photo_heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 16px;;
+}
+
+.photo_heading .subtitle {
+    margin: 0
+}
+
+.photo_controls button {
+    width: 44px; 
+    height: 44px;
+    border: none;
+    border-radius: 10px;
+    background-color: var(--off-white);
+    color: var(--text-base);
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.photo_controls button:hover:not(:disabled) {
+    background-color: var(--surface-color);
+}
+
+.photo_controls button:disabled {
+    opacity: 0.5;
+    cursor: default;
+}
+
+.photo_carousel {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    overflow-x: auto;
+    scroll-snap-type: x proximity;
+    padding: 4px 012px;
+}
+
+.photo_carousel img {
+    display: block;
+    flex: 0 0 auto;
+    height: 260px;
+    width: auto;
+    max-width: 100%;
+    object-fit: contian;
+    border: 4px solid var(--off-white);
+    border-radius: 16px;
+}
+
+.photo_carousel:focus-visable,
+.photo_carousel button:focus-visble {
+    outline: 3px solid var(--text-color);
+    outline-offset: 4px;
+}
+
+@media (max-width: 700px) {
+    .photo_carousel img {
+        height: 200px;
+    }
+}
