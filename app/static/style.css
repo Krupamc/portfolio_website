@@ -380,38 +380,73 @@ button.nav_item {
 
 .list details {
     margin-bottom: 14px;
+    background-color: var(--off-white);
+    border-radius: 12px;;
 }
 
 .list summary {
-    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 16px 20px;
+    border-radius: 12px;
+    color: var(--text-base);
     font-size: 18px;
-    font-weight: 18px;
     font-weight: 600;
-    color: var(--secondary-color);
-    transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
-    background-color: var(--button-color);
-    padding: 12px 18px;
-    border-radius: 10px;
-    width: fit-content;
+    list-style: none;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.list summary::-webkit-details-marker {
+    display: none;
+}
+
+.list summary::after {
+    content: "+";
+    flex-shrink: 0;
+    color: var(--primary-color);
+    font-size: 24px;
+    line-height: 1;
+}
+.list details[open] >summary::after {
+    content: "-";
+}
+.list details[open] > summary {
+    border-radius: 12px 12px 0 0;
 }
 
 .list summary:hover {
-    color: var(--primary-color);
-    transform: translateY(-3px);
+    background-color: var(--surface-color);
+    transform: translateY(-3px)
+}
+
+.list summary:focus-visible {
+    outline: 3px solid var(--text-base);
+    outline-offset: 3px;
+}
+.details_content {
+    padding: 0 20px 20px;
+}
+
+.details_content > p:first-child {
+    margin-top: 0;
 }
 
 .list ul {
-    margin: 10px 0 0 0;
+    margin: 12px 0;
     padding-left: 24px;
-    background-color: var(--off-white);
-    border-radius: 16px;
+    background: none;
+    border-radius: 0;
 }
 
 .list li {
+    padding: 4px 0;
     color: var(--text-color);
-    padding: 3px 0;
-    line-height: 1.5;
+    line-height: 1.6;
 }
+
 .list li::marker {
     color: var(--primary-color);
 }
