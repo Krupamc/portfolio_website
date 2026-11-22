@@ -655,7 +655,10 @@ button.nav_item {
 
 /* Immich photo carousel */
 .photo_section {
-    margin: 32px 0;
+    width: 100%;
+    max-width: 760px;
+    min-width: 0;
+    margin: 32px auto;
 }
 
 .photo_heading {
@@ -663,20 +666,30 @@ button.nav_item {
     align-items: center;
     justify-content: space-between;
     gap: 16px;
-    margin-bottom: 16px;;
+    margin-bottom: 16px;
 }
 
 .photo_heading .subtitle {
-    margin: 0
+    margin: 0;
+}
+
+.photo_controls {
+    display: flex;
+    flex-shrink: 0;
+    gap: 8px;
 }
 
 .photo_controls button {
-    width: 44px; 
+    width: 44px;
     height: 44px;
+    padding: 0;
+
     border: none;
     border-radius: 10px;
+
     background-color: var(--off-white);
     color: var(--text-base);
+
     font-size: 24px;
     cursor: pointer;
 }
@@ -691,33 +704,47 @@ button.nav_item {
 }
 
 .photo_carousel {
+    position: relative;
     display: flex;
+    flex-wrap: nowrap;
     align-items: center;
-    gap: 16px;
+    width: 100%;
+    gap: 0;
+    padding: 0;
     overflow-x: auto;
-    scroll-snap-type: x proximity;
-    padding: 4px 012px;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    border-radius: 12px;
+    /* without the large visible bar */
+    scrollbar-width: none;
+}
+.photo_carousel::-webkit-scrollbar {
+    display: none;
 }
 
 .photo_carousel img {
     display: block;
-    flex: 0 0 auto;
-    height: 260px;
-    width: auto;
+    flex: 0 0 100%;
+    width: 100%;
+    min-width: 0;
     max-width: 100%;
-    object-fit: contian;
-    border: 4px solid var(--off-white);
-    border-radius: 16px;
+    height: 400px;
+    object-fit: contain;
+    box-sizing: border-box;
+    scroll-snap-align: start;
+
+    border: none;
+    border-radius: 0;
 }
 
-.photo_carousel:focus-visable,
-.photo_carousel button:focus-visble {
-    outline: 3px solid var(--text-color);
-    outline-offset: 4px;
+#photos-pause {
+    width: auto;
+    padding: 0 14px;
+    font-size: 16px;
 }
 
 @media (max-width: 700px) {
     .photo_carousel img {
-        height: 200px;
+        height: 240px;
     }
 }

@@ -14,6 +14,7 @@
                 
                     <div class="photo_controls">
                         <button type="button" id="photos-prev" aria-label="Scroll Photos Left" aria-controls="photo-carousel" disabled><span aria-hidden="true">←</span></button>
+                        <button type="button" id="photos-pause" aria-label="Start/Stop Scrolling" aria-controls="photo-carousel" disabled><span aria-hidden="true">▶</span></button>
                         <button type="button" id="photos-next" aria-label="Scroll Photos Right" aria-controls="photo-carousel" disabled ><span aria-hidden="true">→</span></button>
                     </div>
                 </div>
@@ -26,23 +27,93 @@
             <script>
             (async () => {
                 const carousel = document.getElementById("photo-carousel");
+                const section = carousel.closest(".photo_section");
                 const status = document.getElementById("photo-status");
-                const previous = document.getElementById("photo-prev");
-                const next = document.getElementById("photo-next");
+                const previous = document.getElementById("photos-prev");
+                const next = document.getElementById("photos-next");
+                const pause = document.getElementById("photos-pause");
 
                 const reducedMotion = window.matchMedia(
                     "(prefers-reduced-motion: reduce)"
                 );
 
-                function scrollPhotos(direction) {
-                    carousel.scrollBy({
-                        left: direction * carousel.clientWidth * 0.8,
+                let photos = [];
+                let timer = null;
+                let paused = reducedMotion.matches;
+                
+                function updatePauseButton() {
+                    pause.textContent = paused ? "Play" : "Pause";
+                }
+
+                function stopTimer() {
+                    clearInterval(timer);
+                    timer = null;
+                }
+
+                function movePhoto(direction) {
+                    if (photos.length < 2) return;
+
+                    const firstPosition = photos[0].offsetLeft;
+                    const positions = photos.map((photo) => photo.offsetLeft - firstPosition);
+                    let currentIndex = 0;
+
+                    positions.forEach((position, index) => {
+                        if (
+                            Math.abs(position - carousel.scrollLeft) <
+                            Math.abs(positions[currentIndex] - carousel.scrollLeft)
+                        ) {
+                            currentIndex = index;
+                        }
+                    });
+
+                    const nextIndex = (currentIndex + direction + photos.length) % photos.length;
+                
+                    carousel.scrollTo({
+                        left: positions[nextIndex],
                         behavior: reducedMotion.matches ? "instant" : "smooth"
                     });
                 }
 
-                previous.addEventListener("click", () => scrollPhotos(-1));
-                next.addEventListener("click", () => scrollPhotos(1));
+                function startTimer() {
+                    stopTimer();
+                    if (paused || photos.length <2) return;
+                    timer = setInterval(() => {
+                        if (!document.hidden && !section.matches(":hover")) {
+                            movePhoto(1);
+                        }
+                    }, 5000);
+                }
+
+                function pausePlayback() {
+                    paused = true;
+                    stopTimer();
+                    updatePauseButton();
+                }
+
+                previous.addEventListener("click", () => {
+                    pausePlayback();
+                    movePhoto(-1);
+                });
+
+                next.addEventListener("click", () => {
+                    pausePlayback();
+                    movePhoto(1);
+                });
+
+                pause.addEventListener("click", () => {
+                    paused = !paused;
+                    updatePauseButton();
+                    startTimer();
+                });
+
+                section.addEventListener("focusin", pausePlayback);
+
+                // Stop automatic movement during manuel.
+                carousel.addEventListener("pointerdown", pausePlayback);
+
+                reducedMotion.addEventListener("change", () => {
+                    if (reducedMotion.matches) pausePlayback();
+                });
 
                 try {
                     const response = await fetch("/api/gallery");
@@ -73,9 +144,18 @@
                         carousel.appendChild(image);
                     });
 
+                    photos = Array.from(carousel.querySelectorAll("img"));
+
                     status.hidden = true;
-                    previous.disabled = false;
-                    next.disabled = false;
+
+                    const hasMultiplePhotos = photos.length > 1;
+
+                    previous.disabled = !hasMultiplePhotos;
+                    next.disabled = !hasMultiplePhotos;
+                    pause.disabled = !hasMultiplePhotos;
+
+                    updatePauseButton();
+                    startTimer();
 
                 } catch {
                     status.textContent = "Photos are currently unavailable.";
