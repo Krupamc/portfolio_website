@@ -13,8 +13,8 @@
                     <h2 id="photo-heading" class="subtitle">A Few Moments...</h2>
                 
                     <div class="photo_controls">
-                        <button type="button" id="photo-prev" aria-label="Scroll Photos Left" aria-controls="photo-carousel"></button>
-                        <button type="button" id="photo-next" aria-label="Scroll Photos Right" aria-controls="photo-carousel"></button>
+                        <button type="button" id="photos-prev" aria-label="Scroll Photos Left" aria-controls="photo-carousel" disabled><span aria-hidden="true">←</span></button>
+                        <button type="button" id="photos-next" aria-label="Scroll Photos Right" aria-controls="photo-carousel" disabled ><span aria-hidden="true">→</span></button>
                     </div>
                 </div>
 
@@ -27,8 +27,8 @@
             (async () => {
                 const carousel = document.getElementById("photo-carousel");
                 const status = document.getElementById("photo-status");
-                const previous = document.getElementById("photos-prev");
-                const next = document.getElementById("photos-next");
+                const previous = document.getElementById("photo-prev");
+                const next = document.getElementById("photo-next");
 
                 const reducedMotion = window.matchMedia(
                     "(prefers-reduced-motion: reduce)"
@@ -37,29 +37,38 @@
                 function scrollPhotos(direction) {
                     carousel.scrollBy({
                         left: direction * carousel.clientWidth * 0.8,
-                        behavior: reducedMotion.matches ? "istant" : "smooth" /* smooth scroll for reduced motion */
+                        behavior: reducedMotion.matches ? "instant" : "smooth"
                     });
                 }
-                
-                previous.addEventListener("click", () => scrollPhotos(-1));
-                next.addEventListener("click", () => scrollPhotos(1));                
 
-                previous.disabled = true;
-                next.disabled = true;
+                previous.addEventListener("click", () => scrollPhotos(-1));
+                next.addEventListener("click", () => scrollPhotos(1));
 
                 try {
                     const response = await fetch("/api/gallery");
+
                     if (!response.ok) {
-                        throw new Error("Gallery Unavailable");
+                        throw new Error("Gallery unavailable");
                     }
+
                     const data = await response.json();
 
+                    if (!Array.isArray(data.photos)) {
+                        throw new Error("Unexpected gallery response");
+                    }
+
+                    if (data.photos.length === 0) {
+                        status.textContent = "No photos to show yet.";
+                        return;
+                    }
+
                     data.photos.forEach((photo) => {
-                        const image = document.createElement("img")
-                        image.srl = photo.url;
+                        const image = document.createElement("img");
+
+                        image.src = photo.url;
                         image.alt = "";
-                        image.loading="lazy";
-                        image.decoding="async";
+                        image.loading = "lazy";
+                        image.decoding = "async";
 
                         carousel.appendChild(image);
                     });
@@ -67,6 +76,7 @@
                     status.hidden = true;
                     previous.disabled = false;
                     next.disabled = false;
+
                 } catch {
                     status.textContent = "Photos are currently unavailable.";
                 }

@@ -84,6 +84,10 @@ Allow: /research
 Allow: /band
 Allow: /theater
 Allow: /contact
+
+Deny: /api/
+Deny: /hackatime/
+
 """
 
 @app.get("/mates", response_class=HTMLResponse)
@@ -233,36 +237,49 @@ def calendar_status():
 # ---Immich Background---
 # Get asset ids
 def get_gallery_asset_ids():
-    # Refresh every 5 mins
     if monotonic() < _gallery_cache["expires"]:
         return _gallery_cache["asset_ids"]
 
     try:
-
-        response = requests.get(
-            f"{cfg.immich_url}/api/albums/{cfg.immich_album_id}",
-            headers={
-                "x-api-key": cfg.immich_api_key
+        response = requests.post(
+            f"{cfg.immich_url}/api/search/metadata",
+            headers={"x-api-key": cfg.immich_api_key.strip(),},
+            json={
+                "albumIds": [cfg.immich_album_id],
+                "type": "IMAGE",
+                "size": 20,
+                "withExif": False,
+                "withPeople": False,
             },
             timeout=10,
         )
+
         response.raise_for_status()
+        data = response.json()
 
-        assets = response.json().get("assets", [])
+        assets = data["assets"]["items"]
+        if not isinstance(assets, list):
+            raise ValueError("Unexpected asset list.")
 
-        #only photos
         asset_ids = [
             asset["id"]
             for asset in assets
             if asset.get("type") == "IMAGE"
-        ][:20]
+        ]
 
         _gallery_cache["asset_ids"] = asset_ids
-        _gallery_cache["expires"] = monotonic() + 86400
+        _gallery_cache["expires"] = monotonic() + 300 # 86400 or smth
 
         return asset_ids
-    except (requests.RequestException, ValueError, KeyError, TypeError):
-        raise HTTPException(status_code=503, detail="Photo Gallery is Currently Unavailable.")
+
+    except requests.HTTPError as exc:
+        raise HTTPException(status_code=503, detail=("Immich photo search failed: ", f"HTTP {exc.response.status_code}"))
+
+    except requests.RequestException:
+        raise HTTPException(status_code=503, detail="Could not connect to Immich.")
+
+    except (ValueError, KeyError, TypeError):
+        raise HTTPException(status_code=503, detail="Immich returned an unexpected photo-search response.")
 
 @app.get("/api/gallery", include_in_schema=False)
 def gallery_photos():
@@ -274,7 +291,7 @@ def gallery_photos():
     }
 
 # Do not public requiest images
-@app.get("/api/galery/{asset_id}/image", include_in_schema=False)
+@app.get("/api/gallery/{asset_id}/images", include_in_schema=False)
 def gallery_image(asset_id: str):
     if asset_id not in get_gallery_asset_ids():
         raise HTTPException(status_code=404, detail="Photo not Found.")
@@ -293,7 +310,7 @@ def gallery_image(asset_id: str):
         if not content_type.startswith("image/"):
             raise ValueError("Unexpected image response.")
 
-        return Response(content=response.content, media_type=content_type, headers={"Cache-Controls": "public, max-age=86400"})
+        return Response(content=response.content, media_type=content_type, headers={"Cache-Controls": "public, max-age=300"})
 
     except (requests.RequestException, ValueError, KeyError):
         raise HTTPException(status_code=503, detail="Photo is currently unavailable.")
