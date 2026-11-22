@@ -7,6 +7,73 @@
             <div class="break_line"></div>
             <h1 class="title_header">About Me:</h1>
 
+            <!-- Image carasoul from immich-->
+            <section class="photo_section" aria-labelledby="photo-heading">
+                <div class="photo_heading">
+                    <h2 id="photo-heading" class="subtitle">A Few Moments...</h2>
+                
+                    <div class="photo_controls">
+                        <button type="button" id="photo-prev" aria-label="Scroll Photos Left" aria-controls="photo-carousel"></button>
+                        <button type="button" id="photo-next" aria-label="Scroll Photos Right" aria-controls="photo-carousel"></button>
+                    </div>
+                </div>
+
+                <p id="photo-status" role="status">Loading photos...</p>
+            
+                <div class="photo_carousel" id="photo-carousel" tabindex="0" role="region" aria-label="Photo gallery"></div>
+            </section>
+
+            <script>
+            (async () => {
+                const carousel = document.getElementById("photo-carousel");
+                const status = document.getElementById("photo-status");
+                const previous = document.getElementById("photos-prev");
+                const next = document.getElementById("photos-next");
+
+                const reducedMotion = window.matchMedia(
+                    "(prefers-reduced-motion: reduce)"
+                );
+
+                function scrollPhotos(direction) {
+                    carousel.scrollBy({
+                        left: direction * carousel.clientWidth * 0.8,
+                        behavior: reducedMotion.matches ? "istant" : "smooth" /* smooth scroll for reduced motion */
+                    });
+                }
+                
+                previous.addEventListener("click", () => scrollPhotos(-1));
+                next.addEventListener("click", () => scrollPhotos(1));                
+
+                previous.disabled = true;
+                next.disabled = true;
+
+                try {
+                    const response = await fetch("/api/gallery");
+                    if (!response.ok) {
+                        throw new Error("Gallery Unavailable");
+                    }
+                    const data = await response.json();
+
+                    data.photos.forEach((photo) => {
+                        const image = document.createElement("img")
+                        image.srl = photo.url;
+                        image.alt = "";
+                        image.loading="lazy";
+                        image.decoding="async";
+
+                        carousel.appendChild(image);
+                    });
+
+                    status.hidden = true;
+                    previous.disabled = false;
+                    next.disabled = false;
+                } catch {
+                    status.textContent = "Photos are currently unavailable.";
+                }
+            })();
+            </script>
+
+            <!-- About me-->
             <div class="side_by_side">
                 <div class="paragraph">
                     <p>
