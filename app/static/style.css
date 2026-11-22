@@ -421,7 +421,6 @@ button.nav_item {
     background-color: var(--surface-color);
     transform: translateY(-3px)
 }
-
 .list summary:focus-visible {
     outline: 3px solid var(--text-base);
     outline-offset: 3px;
