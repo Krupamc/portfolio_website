@@ -107,26 +107,32 @@
                     startTimer();
                 });
 
-                /* Arrow key listeners */
+                // Arrow keys work for carousel 
                 section.addEventListener("keydown", (event) => {
-
+            
                     if (event.altKey || event.ctrlKey || event.metaKey) return;
+
                     if (event.key !== "ArrowLeft" && event.key !== "ArrowRight") {
-                        return; 
+                        return;
                     }
-
                     event.preventDefault();
+
                     if (event.repeat) return;
-
                     pausePlayback();
-                    movePhoto(event.key === "ArrowRight" ? 1 : -1)
-
-                })
+                    movePhoto(event.key === "ArrowRight" ? 1 : -1);
+                });
 
                 section.addEventListener("focusin", pausePlayback);
 
                 // Stop automatic movement during manuel.
-                carousel.addEventListener("pointerdown", pausePlayback);
+                carousel.addEventListener("pointerdown", (event) => {
+                    pausePlayback();
+
+                    //click photo for arrow-key nav
+                    if (event.pointerType === "mouse" && event.button === 0) {
+                        carousel.focus({preventScroll: true})
+                    }
+                });
 
                 reducedMotion.addEventListener("change", () => {
                     if (reducedMotion.matches) pausePlayback();
