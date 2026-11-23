@@ -707,6 +707,7 @@ button.nav_item {
     scroll-snap-type: x mandatory;
     border-radius: 16px;
     scrollbar-width: none;
+    touch-action: auto;
 }
 
 .photo_carousel::-webkit-scrollbar {
@@ -726,6 +727,7 @@ button.nav_item {
     border-radius: 16px;
     box-sizing: border-box;
     scroll-snap-align: start;
+    scroll-snap-stop: always
 }
 
 /* Controls centered below the photo */

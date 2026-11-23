@@ -90,6 +90,7 @@
                     updatePauseButton();
                 }
 
+                /* Button listeners */
                 previous.addEventListener("click", () => {
                     pausePlayback();
                     movePhoto(-1);
@@ -105,6 +106,22 @@
                     updatePauseButton();
                     startTimer();
                 });
+
+                /* Arrow key listeners */
+                section.addEventListener("keydown", (event) => {
+
+                    if (event.altKey || event.ctrlKey || event.metaKey) return;
+                    if (event.key !== "ArrowLeft" && event.key !== "ArrowRight") {
+                        return; 
+                    }
+
+                    event.preventDefault();
+                    if (event.repeat) return;
+
+                    pausePlayback();
+                    movePhoto(event.key === "ArrowRight" ? 1 : -1)
+
+                })
 
                 section.addEventListener("focusin", pausePlayback);
 
@@ -140,6 +157,7 @@
                         image.alt = "";
                         image.loading = "lazy";
                         image.decoding = "async";
+                        image.draggable = false;
 
                         carousel.appendChild(image);
                     });
