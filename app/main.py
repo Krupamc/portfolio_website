@@ -114,6 +114,10 @@ def contact(request: Request):
 def homelab(request: Request):
     return templates.TemplateResponse(request, "homelab.html", {"request": request, "active_page": "homelab"})
 
+@app.get("/specs", response_class=HTMLResponse)
+def specs(request: Request):
+    return templates.TemplateResponse(request, "specs.html", {"request": request, "active_page": "specs"})
+
 @app.get("/website", response_class=HTMLResponse)
 def website(request: Request):
     return templates.TemplateResponse(request, "website.html", {"request": request, "active_page": "website"})

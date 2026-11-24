@@ -1,3 +1,2 @@
-- photos page swiping on mobile.
-
+- update my readme
 
