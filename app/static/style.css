@@ -712,9 +712,25 @@ button.nav_item {
     font-size: 18px
 }
 
+.homelab_status {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    margin: 24px 0;
+    background-color: var(--box-color);
+    border-radius: 16px;
+    color: var(--primary-color);
+    font-size: 26px
+}
+.homelab_status p {
+    padding-left: 10px;
+    margin: 0
+}
+
 .status_circle {
-    width: 100px;
-    height: 100px;
+    flex: 0 0 auto;
+    width: 32px;
+    height: 32px;
     border-radius: 50%;
     background-color: var(--text-base)
 }

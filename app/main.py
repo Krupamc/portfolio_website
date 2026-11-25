@@ -44,7 +44,7 @@ _gallery_cache = {
 # Uptimerobot cache
 _uptime_cache = {
     "expires": 0,
-    "services": [None]
+    "services": None
 }
 
 # For any http error, send them to a specific error page
@@ -52,15 +52,7 @@ _uptime_cache = {
 async def not_found(request: Request, exc: StarletteHTTPException):
     # HTTP Errors
     if exc.status_code == 404:
-        return templates.TemplateResponse(request, "404.html", {"request": request, "title": "404", "detail": exc.detail})
-    elif exc.status_code == 403:
-        return templates.TemplateResponse(request, "403.html", {"request": request, "title": "403", "detail": exc.detail})
-    elif exc.status_code == 401:
-        return templates.TemplateResponse(request, "401.html", {"request": request, "title": "401", "detail": exc.detail})
-    elif exc.status_code == 400:
-        return templates.TemplateResponse(request, "400.html", {"request": request, "title": "400", "detail": exc.detail})
-    elif exc.status_code == 500:
-        return templates.TemplateResponse(request, "500.html", {"request": request, "title": "500", "detail": exc.detail})
+        return templates.TemplateResponse(request, "404.html", {"request": request, "title": "404", "detail": exc.detail}, exc.status_code)
     
     return await http_exception_handler(request, exc)
 
@@ -92,8 +84,8 @@ Allow: /band
 Allow: /theater
 Allow: /contact
 
-Deny: /api/
-Deny: /hackatime/
+Disallow: /api/
+Disallow: /hackatime/
 
 """
 
@@ -114,7 +106,7 @@ def extracurriculars(request: Request):
     return templates.TemplateResponse(request, "clubs.html", {"request": request, "active_page": "clubs"})
 
 @app.get("/services", response_class=HTMLResponse)
-def contact(request: Request):
+def services(request: Request):
     return templates.TemplateResponse(request, "services.html", {"request": request, "active_page": "services"})
 
 @app.get("/homelab", response_class=HTMLResponse)
@@ -283,7 +275,7 @@ def get_gallery_asset_ids():
         return asset_ids
 
     except requests.HTTPError as exc:
-        raise HTTPException(status_code=503, detail=("Immich photo search failed: ", f"HTTP {exc.response.status_code}"))
+        raise HTTPException(status_code=503, detail=(f"Immich photo search failed: HTTP {exc.response.status_code}"))
 
     except requests.RequestException:
         raise HTTPException(status_code=503, detail="Could not connect to Immich.")
@@ -344,10 +336,9 @@ def count_statuses(monitors):
 
     return counts
 
-@app.get("/api/homelab/status")
 def get_uptime_status():
     if monotonic() < _uptime_cache["expires"]:
-        if _uptime_cache["services"] is not None:
+        if monotonic() < _uptime_cache["expires"]:
             return _uptime_cache["services"]
 
     # Back off after a failure (cuz rate limit)
@@ -377,6 +368,7 @@ def get_uptime_status():
     print(result)
     return result
 
+# docs version
 @app.get("/api/homelab/status")
 def homelab_status_api():
     status = get_uptime_status()
@@ -385,7 +377,7 @@ def homelab_status_api():
     return status
 
 
-def calc_stats(request: Request):
-    today = week_summary(request)
+# def calc_stats(request: Request):
+#     today = week_summary(request)
 
-calc_stats(Request)
+# calc_stats(Request)

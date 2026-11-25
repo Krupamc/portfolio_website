@@ -259,13 +259,21 @@
             <div class="break_line_small"></div>
 
             <!-- Homelab status -->
-            <div class="availability_widget">
-                {% if uptime is none or uptime.precent_down is none %}
+            <h2 class="subtitle">Homelab Service Uptime:</h2>
+            <div class="homelab_status">
+                {% if uptime is none or uptime.percent_down is none %}
                     <div class="status_circle"></div>
-                    <span>Cannot scan for services.</span>
-                {% elif uptime.precent_down == 0 and uptime.looks_down == 0 %}
-                    <div class
-            
+                    <p>Cannot scan for services.</p>
+                {% elif uptime.percent_down == 0 and uptime.looks_down == 0 %}
+                    <div class="status_circle up"></div>
+                    <p>All services are up!</p>
+                {% elif uptime.percent_down <= 50 %}
+                    <div class="status_circle half"></div>
+                    <p>Some services are down or having trouble.</p>
+                {% else %}
+                    <div class="status_circle down"></div>
+                    <p>Most services are down...</p>
+                {% endif %}
                 </div>
 
             <script>
