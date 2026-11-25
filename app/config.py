@@ -24,5 +24,7 @@ immich_url = os.getenv("IMMICH_URL", "")
 immich_api_key = os.getenv("IMMICH_API_KEY", "")
 immich_album_id = os.getenv("IMMICH_ALBUM_ID", "")
 
+uptimerobot_api_key = os.getenv("UPTIMEROBOT_API_KEY", "")
+
 if not hackatime_token:
     raise RuntimeError("Hackatime Token Missing")

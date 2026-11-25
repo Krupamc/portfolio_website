@@ -41,6 +41,11 @@ _gallery_cache = {
     "asset_ids": []
 }
 
+# Uptimerobot cache
+_uptime_cache = {
+    "expires": 0
+}
+
 # For any http error, send them to a specific error page
 @app.exception_handler(StarletteHTTPException)
 async def not_found(request: Request, exc: StarletteHTTPException):
@@ -271,7 +276,7 @@ def get_gallery_asset_ids():
         ]
 
         _gallery_cache["asset_ids"] = asset_ids
-        _gallery_cache["expires"] = monotonic() + 86400 # 86400 or smth
+        _gallery_cache["expires"] = monotonic() + 86400 # 24hrs
 
         return asset_ids
 
@@ -318,6 +323,19 @@ def gallery_image(asset_id: str):
     except (requests.RequestException, ValueError, KeyError):
         raise HTTPException(status_code=503, detail="Photo is currently unavailable.")
 
+# Homelab status api
+@app.get("/api/home/status")
+def get_homelab_status():
+    if monotonic() < _uptime_cache["expires"]:
+        return _uptime_cache["expires"]
+    response = requests.get("https://api.uptimerobot.com/v2/getMonitors", data={"api_key": cfg.uptiemrobot_api_key, "format": "json"}, timeout=10)
+    response.raise_for_status()
+    print(response.content)
+    try:
+        print()
+    except:
+        raise RuntimeError(status_code=500, detail="API Error")
+    print()
 
 def calc_stats(request: Request):
     today = week_summary(request)
