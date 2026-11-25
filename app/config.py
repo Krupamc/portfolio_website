@@ -1,4 +1,8 @@
 import os
+from dotenv import load_dotenv, find_dotenv
+
+load_dotenv(find_dotenv(usecwd=True), override=False)
+
 # Get functions
 def get_bool(name: str, default: bool = False) -> bool:
     value = os.getenv(name)

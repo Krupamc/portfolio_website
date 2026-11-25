@@ -43,7 +43,8 @@ _gallery_cache = {
 
 # Uptimerobot cache
 _uptime_cache = {
-    "expires": 0
+    "expires": 0,
+    "services": []
 }
 
 # For any http error, send them to a specific error page
@@ -327,7 +328,11 @@ def gallery_image(asset_id: str):
 @app.get("/api/home/status")
 def get_homelab_status():
     if monotonic() < _uptime_cache["expires"]:
-        return _uptime_cache["expires"]
+        return _uptime_cache["services"]
+
+    # Back off after a failure (cuz rate limit)
+    _uptime_cache["expires"] = monotonic() + 60
+    
     response = requests.get("https://api.uptimerobot.com/v2/getMonitors", data={"api_key": cfg.uptiemrobot_api_key, "format": "json"}, timeout=10)
     response.raise_for_status()
     print(response.content)
