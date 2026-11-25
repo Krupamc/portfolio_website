@@ -43,7 +43,7 @@ This is a small mostly static (for now) website built using FastAPI, HTML, CSS, 
 - List of what I do and some info.
 - List to contact page.
 - Pictures of some stuff I do.
-<img width="1560" height="1062" alt="image" src="https://github.com/user-attachments/assets/bd523436-2abc-4c85-9454-9f6fb04270eb" />
+<img width="1560" height="1062" alt="image" src="https://github.com/user-attachments/assets/bd523436-2abc-4c85-9454-9f6fb04270eb"/>
 
 #### Homelab:
 - What is a home lab?
@@ -65,12 +65,24 @@ This is a small mostly static (for now) website built using FastAPI, HTML, CSS, 
 - Links to my other websites
 
 ### Experiences:
+
 #### Work & Internships:
 - My job experience
 - My odd jobs/gigs
 - Internship at Save Barnegat Bay, what I did, where I went for them.
 - Internship at NJCCIC and what I did.
+
 #### Hack Club:
+- What is Hack Club?
+  - Link to their website
+- Programs I have done:
+  - Explains what they were, when, and what projects I did.
+    - Images and links to the projects.
+
+### Volunteer:
+- Where I volenteer and the story behind them.
+  - (Library, temple, school for examples)
+- Pictures of what I do/the place.
 
 
 ### Indepedent Research:
@@ -92,13 +104,6 @@ Has several buttons that take you to:
 - Github account
 - LinkedIn page
 <img width="793" height="541" alt="image" src="https://github.com/user-attachments/assets/fca02a87-0b53-495e-b185-e1714d6dac7f" />
-
-
-## PLANNED Pages
-### School page:
-With sub pages for my extracurricular involvement and leadership roles
-### Page with my hackatime data?
-### And more!
 
 ## Features:
 - All buttons have a transition/transform state when hovered/clicked on.
