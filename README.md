@@ -3,10 +3,11 @@ A little portfolio website built to showcase projects I have created, what I hav
 [Try it out!](https://krupamlab.com)
 ---
 ![Code Time](https://hackatime.hackclub.com/api/v1/badge/U0B7G9Z2X7C/Krupamc/portfolio_website)
-<img width="2013" height="1217" alt="image" src="https://github.com/user-attachments/assets/809c98df-7e5d-4d62-bfa1-65b36f41e3c0" />
+
+<img width="1877" height="1210" alt="image" src="https://github.com/user-attachments/assets/9c568f1f-8268-4591-bf35-bc6042ca773d" />
 
 ## What is it?
-This is a small mostly static (for now) website built using FastAPI, HTML, CSS, JS, and Jinja2 Templates. It is hosted using docker (instructions below). 
+This is a small "mostly" static (for now) website built using FastAPI, HTML, CSS, JS, and Jinja2 Templates. It is hosted using docker (instructions below). 
 
 ## Pages:
 ### Home:
@@ -19,7 +20,8 @@ This is a small mostly static (for now) website built using FastAPI, HTML, CSS, 
   - Hackatime Widget: Shows a graph of my coding time by languages.
 - Schedule Widget that checks my Google calendar if I am busy or not. Very cool!!!
 - My resume
-<img width="1247" height="912" alt="image" src="https://github.com/user-attachments/assets/47070df9-52af-465e-8706-08e5dc77b479" />
+<img width="1116" height="800" alt="image" src="https://github.com/user-attachments/assets/667c976b-43ef-4009-8efc-9cc2074252a4" />
+<img width="1085" height="1017" alt="image" src="https://github.com/user-attachments/assets/e5d3afca-08aa-446a-bcf1-9cf2faefda59" />
 
 ### MATES (My School):
 #### MATES? 
@@ -28,10 +30,14 @@ This is a small mostly static (for now) website built using FastAPI, HTML, CSS, 
 - Dropdowns with what classes I have taken.
 #### GIS:
 - Explaination of the class and where I have been with pictures of my classwork. Events I have been for GIS.
+<img width="1065" height="1020" alt="image" src="https://github.com/user-attachments/assets/613f688a-fddb-4f75-a9cb-456b5535ffaa" />
+
 #### Field Experience:
 - Explaination of all my field classes and what skills I learned.
 - PDFs of some of my write-ups from class.
 - Pictures of the fields.
+<img width="1173" height="790" alt="image" src="https://github.com/user-attachments/assets/ef8d8f05-0c7c-4452-b6dd-ef5dc6de7653" />
+
 #### Extracurriculars:
 - List of all the clubs I am in (with links to pages if they exist)
 - Pictures of some activities
@@ -43,7 +49,7 @@ This is a small mostly static (for now) website built using FastAPI, HTML, CSS, 
 - List of what I do and some info.
 - List to contact page.
 - Pictures of some stuff I do.
-<img width="1560" height="1062" alt="image" src="https://github.com/user-attachments/assets/bd523436-2abc-4c85-9454-9f6fb04270eb"/>
+<img width="1170" height="1025" alt="image" src="https://github.com/user-attachments/assets/b8ecd549-f3fe-4b97-a9ce-7d8058c03010" />
 
 #### Homelab:
 - What is a home lab?
@@ -58,11 +64,13 @@ This is a small mostly static (for now) website built using FastAPI, HTML, CSS, 
   - Laptop
   - Peripherals
   - Software
+<img width="1263" height="937" alt="image" src="https://github.com/user-attachments/assets/80da74a0-1987-4f1c-aac8-009c52416be8" />
 
 #### Websites:
 - How and why I run this website
 - FAQs about my websites.
 - Links to my other websites
+<img width="976" height="1023" alt="image" src="https://github.com/user-attachments/assets/1192cbae-8506-4208-8703-01414c2090d0" />
 
 ### Experiences:
 
@@ -71,6 +79,7 @@ This is a small mostly static (for now) website built using FastAPI, HTML, CSS, 
 - My odd jobs/gigs
 - Internship at Save Barnegat Bay, what I did, where I went for them.
 - Internship at NJCCIC and what I did.
+<img width="1027" height="830" alt="image" src="https://github.com/user-attachments/assets/ae4bc6da-9347-4034-9021-e2e220717cdb" />
 
 #### Hack Club:
 - What is Hack Club?
@@ -78,6 +87,7 @@ This is a small mostly static (for now) website built using FastAPI, HTML, CSS, 
 - Programs I have done:
   - Explains what they were, when, and what projects I did.
     - Images and links to the projects.
+<img width="1000" height="990" alt="image" src="https://github.com/user-attachments/assets/40ae6d74-f41a-4e72-89e3-fcf486e02eb0" />
 
 ### Volunteer:
 - Where I volenteer and the story behind them.
@@ -94,6 +104,8 @@ This is a small mostly static (for now) website built using FastAPI, HTML, CSS, 
 #### Band:
 - My story about band and why I love it
 - Pictures
+<img width="1075" height="961" alt="image" src="https://github.com/user-attachments/assets/b8ada086-a141-48f4-9c57-6c339a1bef3c" />
+
 #### Audio Video, Lighting, and Theater:
 - What I do
 - Dropdown of all shows I have lighted/been in.
