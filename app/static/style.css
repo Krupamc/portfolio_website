@@ -712,6 +712,24 @@ button.nav_item {
     font-size: 18px
 }
 
+.status_circle {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background-color: var(--text-base)
+}
+
+.status_circle.up {
+    background-color: var(--accent-color)
+}
+.status_circle.down {
+    background-color: red;
+}
+.status_circle.half {
+    background-color: #f2902f;
+}
+
+
 /* Immich photo carousel */
 .photo_section {
     width: 100%;

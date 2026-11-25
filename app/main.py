@@ -44,7 +44,7 @@ _gallery_cache = {
 # Uptimerobot cache
 _uptime_cache = {
     "expires": 0,
-    "services": []
+    "services": [None]
 }
 
 # For any http error, send them to a specific error page
@@ -69,7 +69,8 @@ def root(request: Request):
     today = today_summary(request)
     week = week_summary(request)
     all = total_code_time(request)
-    return templates.TemplateResponse(request, "home.html", {"request": request, "today": today["data"], "week": week["data"], "all": all["data"]})
+    uptime = get_uptime_status()
+    return templates.TemplateResponse(request, "home.html", {"request": request, "today": today["data"], "week": week["data"], "all": all["data"], "uptime": uptime})
 
 @app.get("/robots.txt", response_class=PlainTextResponse, include_in_schema=False)
 def robots_txt():
@@ -344,41 +345,46 @@ def count_statuses(monitors):
     return counts
 
 @app.get("/api/homelab/status")
-def get_homelab_status():
+def get_uptime_status():
     if monotonic() < _uptime_cache["expires"]:
         if _uptime_cache["services"] is not None:
             return _uptime_cache["services"]
-        return JSONResponse({"detail": "Status temporarily unavailable"}, status_code=503)
 
     # Back off after a failure (cuz rate limit)
     _uptime_cache["expires"] = monotonic() + 60
 
     try:
-        response = requests.get("https://api.uptimerobot.com/v3/monitors", headers={"Authorization": f"Bearer {cfg.uptimerobot_api_key}"}, params={"limit": 100}, timeout=10)
+        response = requests.get("https://api.uptimerobot.com/v3/monitors", headers={"Authorization": f"Bearer {cfg.uptimerobot_api_key}"}, params={"limit": 100}, timeout=5)
         response.raise_for_status()
         
         monitors = response.json()["data"]
-        counts = count_statuses(monitors)
-
-        checked = counts["ups"] + counts["looks_down"] + counts["down"]
-
-        result = {
-            "total": len(monitors),
-            **counts,
-            "precent_down": round(counts["down"] / checked * 100, 1) if checked else None,
-        }
-
-        _uptime_cache["services"] = result
-        _uptime_cache["expires"] = monotonic() + 300 # 5 mins
-
-        print(result)
-        return result
-
+        
     except (requests.RequestException, ValueError, KeyError, TypeError):
-        # Fall back to old result
-        if _uptime_cache["services"] is not None:
-            return _uptime_cache["services"]
-        return JSONResponse({"detail": "Status temporaro;y unavailable."}, status_code=504)
+        return _uptime_cache["services"]  # last good result, or None
+
+    counts = count_statuses(monitors)
+    checked = counts["up"] + counts["looks_down"] + counts["down"]
+
+    result = {
+        "total": len(monitors),
+        **counts,
+        "percent_down": round(counts["down"] / checked * 100, 1) if checked else None,
+    }
+
+    _uptime_cache["services"] = result
+    _uptime_cache["expires"] = monotonic() + 300 # 5 mins
+
+    print(result)
+    return result
+
+@app.get("/api/homelab/status")
+def homelab_status_api():
+    status = get_uptime_status()
+    if status is None:
+        return JSONResponse({"detail": "Status temporarily unavailable"}, status_code=503)
+    return status
+
+
 def calc_stats(request: Request):
     today = week_summary(request)
 

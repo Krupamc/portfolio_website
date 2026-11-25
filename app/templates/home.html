@@ -250,10 +250,23 @@
             <div class="break_line_small"></div>
 
             <!-- Calendar -->
+            <h1 class="subtitle">Let me check if I am busy...</h1>
             <div class="availability_widget">
                 <h2>Today's Schedule</h2>
                 <p id="calendar-status" role="status">Checking my calendar...</p>
             </div>
+
+            <div class="break_line_small"></div>
+
+            <!-- Homelab status -->
+            <div class="availability_widget">
+                {% if uptime is none or uptime.precent_down is none %}
+                    <div class="status_circle"></div>
+                    <span>Cannot scan for services.</span>
+                {% elif uptime.precent_down == 0 and uptime.looks_down == 0 %}
+                    <div class
+            
+                </div>
 
             <script>
             (async () => {
