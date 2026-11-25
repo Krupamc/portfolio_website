@@ -10,12 +10,14 @@ This is a small mostly static (for now) website built using FastAPI, HTML, CSS, 
 
 ## Pages:
 ### Home:
+- Immich Server Carousel (updates every days!)
 - About Me section with a description
 - Coding Widgets
   - Daily: Shows the time coded today out of my goal (currently four hours) with a progress bar that fills up.
   - Weekly: Stats such as total, daiily average, and most used editor/language
   - All time: Total time, most coded language, and the current coding streak.
   - Hackatime Widget: Shows a graph of my coding time by languages.
+- Schedule Widget that checks my Google calendar if I am busy or not. Very cool!!!
 - My resume
 <img width="1247" height="912" alt="image" src="https://github.com/user-attachments/assets/47070df9-52af-465e-8706-08e5dc77b479" />
 
@@ -25,21 +27,52 @@ This is a small mostly static (for now) website built using FastAPI, HTML, CSS, 
 - Link to the MATES website
 - Dropdowns with what classes I have taken.
 #### GIS:
-- Explaination of the class and where I have been with pictures of my classwork.
+- Explaination of the class and where I have been with pictures of my classwork. Events I have been for GIS.
 #### Field Experience:
 - Explaination of all my field classes and what skills I learned.
 - PDFs of some of my write-ups from class.
 - Pictures of the fields.
+#### Extracurriculars:
+- List of all the clubs I am in (with links to pages if they exist)
+- Pictures of some activities
+#### MATES Reflection:
+- What I really thought of my times at MATES
+
 ### My Services & Homelab:
 #### Services:
 - List of what I do and some info.
 - List to contact page.
-- Pictures of some stuff I do
+- Pictures of some stuff I do.
 <img width="1560" height="1062" alt="image" src="https://github.com/user-attachments/assets/bd523436-2abc-4c85-9454-9f6fb04270eb" />
+
 #### Homelab:
 - What is a home lab?
 - Dropdown with my server specs.
 - List of all the services I host (links where applicable)
+
+#### My specs and what I use:
+- Page of my hardware and software.
+- Pictures where applicable
+- Dropdowns:
+  - My PC Specs
+  - Laptop
+  - Peripherals
+  - Software
+
+#### Websites:
+- How and why I run this website
+- FAQs about my websites.
+- Links to my other websites
+
+### Experiences:
+#### Work & Internships:
+- My job experience
+- My odd jobs/gigs
+- Internship at Save Barnegat Bay, what I did, where I went for them.
+- Internship at NJCCIC and what I did.
+#### Hack Club:
+
+
 ### Indepedent Research:
 - My Mentoring experience
 - Picture of my research project with all places I took it and awards I won. Links and github repos where applicable. (I have one for sophomore and junior year)
@@ -76,7 +109,13 @@ With sub pages for my extracurricular involvement and leadership roles
 
 ## Installation:
 - Download/Clone the repository (if in Linux "git clone https://github.com/Krupamc/portfolio_website") 
-
+- Rename `example.env` to `.env` and fill out the variables.
+  - Hackatime Token/ID/Username: Find @ hackatime.hackclub.com
+  - Hackatime email: Your hackclub email
+  - Google Calendar ID/Service account file: Create a google cloud project and a service account and setup the Google Calendar - API. Download the service account JSON file. Replace the text of `google-calendar.json` with the new file.
+  - Immich Url: Url of your Immich instance.
+  - Immich Api Key: Create a API key for your account with album.read, asset.view, asset.read rights.
+  - Immich Album ID: Create a album for your website and fill it with photos you like. In the url, copy the ID (After `/albums/`).
 ### Docker (linux)
 - Make sure docker is installed (this is not a docker guide. Check out their [https://docs.docker.com/engine/install/](docs)). - Open folder
   - Edit the .env file for what port you want the website run on. Edit the "FASTAPI_PORT" value (default is 8001)
