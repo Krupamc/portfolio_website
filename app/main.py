@@ -325,23 +325,60 @@ def gallery_image(asset_id: str):
         raise HTTPException(status_code=503, detail="Photo is currently unavailable.")
 
 # Homelab status api
-@app.get("/api/home/status")
+
+# Count the statuses in the monitors
+def count_statuses(monitors):
+    names = {
+        "UP": "up",
+        "LOOKS_DOWN": "looks_down",
+        "DOWN": "down",
+        "PAUSED": "paused",
+        "STARTED": "pending"
+    }
+    counts = {"up": 0, "looks_down": 0, "down": 0, "paused": 0, "pending": 0, "unknown": 0}
+
+    for monitor in monitors:
+        key = names.get(str(monitor.get("status", "")).upper(), "unknown")
+        counts[key] +=1
+
+    return counts
+
+@app.get("/api/homelab/status")
 def get_homelab_status():
     if monotonic() < _uptime_cache["expires"]:
-        return _uptime_cache["services"]
+        if _uptime_cache["services"] is not None:
+            return _uptime_cache["services"]
+        return JSONResponse({"detail": "Status temporarily unavailable"}, status_code=503)
 
     # Back off after a failure (cuz rate limit)
     _uptime_cache["expires"] = monotonic() + 60
-    
-    response = requests.get("https://api.uptimerobot.com/v2/getMonitors", data={"api_key": cfg.uptiemrobot_api_key, "format": "json"}, timeout=10)
-    response.raise_for_status()
-    print(response.content)
-    try:
-        print()
-    except:
-        raise RuntimeError(status_code=500, detail="API Error")
-    print()
 
+    try:
+        response = requests.get("https://api.uptimerobot.com/v3/monitors", headers={"Authorization": f"Bearer {cfg.uptimerobot_api_key}"}, params={"limit": 100}, timeout=10)
+        response.raise_for_status()
+        
+        monitors = response.json()["data"]
+        counts = count_statuses(monitors)
+
+        checked = counts["ups"] + counts["looks_down"] + counts["down"]
+
+        result = {
+            "total": len(monitors),
+            **counts,
+            "precent_down": round(counts["down"] / checked * 100, 1) if checked else None,
+        }
+
+        _uptime_cache["services"] = result
+        _uptime_cache["expires"] = monotonic() + 300 # 5 mins
+
+        print(result)
+        return result
+
+    except (requests.RequestException, ValueError, KeyError, TypeError):
+        # Fall back to old result
+        if _uptime_cache["services"] is not None:
+            return _uptime_cache["services"]
+        return JSONResponse({"detail": "Status temporaro;y unavailable."}, status_code=504)
 def calc_stats(request: Request):
     today = week_summary(request)
 
