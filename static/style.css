@@ -1,0 +1,25 @@
+:root {
+    --primary-color: #50808E;
+    --secondary-color: #69A297;
+    --accent-color: #84b59F;
+    --surface-color: #A3C9A8;
+    --background-color: #DDD8C4;
+    --text-base: #243438;
+    -off-white: #f3f3f3;
+    /* Derived */
+    --text-color: var(--text-base);
+}
+
+body {
+    margin: 0;
+    background: var(--background-color);
+    color: var(--text-color);
+    line-height: 1.6;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+h1, h2, h3 {
+    color: text-color;
+    line-height: 1.2
+}
+
