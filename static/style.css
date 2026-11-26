@@ -5,9 +5,13 @@
     --surface-color: #A3C9A8;
     --background-color: #DDD8C4;
     --text-base: #243438;
-    -off-white: #f3f3f3;
+    --off-white: #f3f3f3;
     /* Derived */
     --text-color: var(--text-base);
+    --button-text: var(--text-base);
+    --button-text-hover: var(--off-white);
+    --button-color: var(--off-white);
+    --button-color-hover: var(--accent-color);
 }
 
 body {
@@ -23,3 +27,59 @@ h1, h2, h3 {
     line-height: 1.2
 }
 
+p {
+    font-size: 20px;
+    color: var(--text-color);
+}
+
+.logo {
+    height: 150px;
+    width: 150px;
+    border-radius: 50%;
+    border: 5px solid var(--accent-color);
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+.logo:hover {
+    transform: translateY(-5px);
+}
+
+.title_header {
+    size: 16px;
+    font-size: 48px;
+    color: var(--primary-color);
+    text-align: center;
+}
+
+.main_page {
+    padding-bottom: 40px;
+    display: flex;
+    justify-content: center;
+    padding-top: 25px;
+}
+.main_container {
+    width: min(1100px, 92%)
+}
+
+.button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: fit-content;
+    margin: 0 auto;
+    padding: 12px 18px;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--button-text);
+    background-color: var(--button-color);
+    border: none;
+    border-radius: 10px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.button:hover {
+    background: var(--button-color-hover);
+    color: var(--button-text-hover);
+    transform: translateY(-3pxs)
+}
