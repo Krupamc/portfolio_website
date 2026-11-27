@@ -47,6 +47,11 @@ _uptime_cache = {
     "services": None
 }
 
+_github_cache = {
+    "expires": 0,
+    "events": None
+}
+
 # For any http error, send them to a specific error page
 @app.exception_handler(StarletteHTTPException)
 async def not_found(request: Request, exc: StarletteHTTPException):
@@ -62,7 +67,8 @@ def root(request: Request):
     week = week_summary(request)
     all = total_code_time(request)
     uptime = get_uptime_status()
-    return templates.TemplateResponse(request, "home.html", {"request": request, "today": today["data"], "week": week["data"], "all": all["data"], "uptime": uptime})
+    github = get_latest_github_event()
+    return templates.TemplateResponse(request, "home.html", {"request": request, "today": today["data"], "week": week["data"], "all": all["data"], "uptime": uptime, "github": github})
 
 @app.get("/robots.txt", response_class=PlainTextResponse, include_in_schema=False)
 def robots_txt():
@@ -376,14 +382,74 @@ def homelab_status_api():
         return JSONResponse({"detail": "Status temporarily unavailable"}, status_code=503)
     return status
 
-# Github Rest API
+#--- Github Rest API ---
+git_events = {
+    "WatchEvent": "Starred",
+    "ForkEvent": "Forked",
+    "ReleaseEvent": "Published a release in",
+    "IssueCommentEvent": "Commented on an issue in",
+    "PullRequestReviewEvent": "Reviewed a pull request in",
+}
+
+def describe_git_event(event):
+    kind = event.get("type")
+    payload = event.get("payload", {})
+    repo = event.get("repo", {}).get("name", "")
+    text = None
+    if kind == "PushEvent":
+        branch = payload.get("ref", "").removeprefix("ref/heads/")
+        text = f"Pushed to {branch} in"
+    elif kind == "PullRequestEvent":
+        text = f"{payload.get('action', 'updated').capitalize()} a pull request in"
+    elif kind == "IssuesEvent":
+        text = f"{payload.get('action', 'updated').capitalize()} an issue in"
+    elif kind == "CreateEvent":
+        text = f"Created a {payload.get('ref_type', 'ref')} in"
+    elif kind in git_events:
+        text = git_events[kind]
+    else:
+        None
+
+    return {
+        "text": text,
+        "repo": repo,
+        "url": f"https://github.com/{repo}",
+        "when": event.get("created_at", "")
+    }
+
+def time_ago(iso):
+    try:
+        then = datetime.fromisoformat(iso.replace("Z", "+00:00"))
+    except ValueError:
+        return ""
+    secs = int((datetime.now(then.tzinfo) - then).total_seconds())
+    if secs < 3600:
+        return f"{max(secs // 60), 1}m ago"
+    if secs < 86400:
+        return f"{secs // 3600}h ago"
+    return f"{secs // 86400}d ago"
+
 @app.get("/api/github/latest")
-def get_latest_github_event(request: Request):
-    response = requests.get(f"https://api.github.com/users/{cfg.github_user}/events/public", timeout=5)
-    response.raise_for_status()
-    
-    record = 
-    return(response.json())
+def get_latest_github_event():
+    if monotonic() < _github_cache["expires"]:
+        return _github_cache["events"]
+
+    _github_cache["expires"] = monotonic() + 60 # backoff if failure
+
+    try:
+        response = requests.get(f"https://api.github.com/users/{cfg.github_user}/events/public", timeout=5)
+        response.raise_for_status()
+        record = response.json()
+    except (requests.RequestException, ValueError):
+        return _github_cache["events"]
+
+    items = [item for item in map(describe_git_event, record) if item][:5]
+    for item in items: 
+        item["ago"] = time_ago(item["when"])
+
+    _github_cache["events"] = items
+    _github_cache["expires"] = monotonic() + 300
+    return items
 
 # def calc_stats(request: Request):
 #     today = week_summary(request)

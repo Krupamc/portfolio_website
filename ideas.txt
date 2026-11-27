@@ -2,3 +2,4 @@
 - latest github activity with github rest
 - what Im listening to
 - Homelab monitor: CPU, RAM, temperature, uptime
+fix hacaktime widget

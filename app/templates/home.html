@@ -16,9 +16,7 @@
                     <button type="button" id="photos-next" aria-label="Scroll Photos Right" aria-controls="photo-carousel" disabled ><span aria-hidden="true">→</span></button>
                 </div>
 
-                <p id="photo-status" role="status">Loading photos...</p>
-            
-                
+                <p id="photo-status" role="status">Loading photos...</p>   
             </section>
 
             <script>
@@ -244,8 +242,25 @@
                 </div>
             </div>
 
+            <div class="github_widget">
+                <h2>Latest Github Activity:</h2>
+                {% if github %}
+                    <ul>
+                        {% for e in github %}
+                            <li>
+                                <span>{{e.text}} <a href={{e.url}} target="_blank" rel="noopener">{{ e.repo }}</a></span>
+                                <small>{{ e.ago }}</small>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <p>Activity unavailable right now.</p>
+                {% endif %}
+            </div>
+
             <!--<iframe src="https://github-readme-stats.hackclub.dev/api/wakatime?username=35839&api_domain=hackatime.hackclub.com&theme=catppuccin_latte&custom_title=My+Hackatime+Stats&layout=compact&cache_seconds=0&langs_count=8" width="100%" height="500" style="border: none"></iframe>-->
-            <iframe src="https://github-readme-stats.hackclub.dev/api/wakatime?username=35839&api_domain=hackatime.hackclub.com&theme=solarized-light&custom_title=My+Hackatime+Stats&layout=compact&cache_seconds=0&langs_count=8" width="100%" height="500" style="border: none"></iframe>
+            <iframe src="https://github-readme-stats.hackclub.dev/api/wakatime?username=35839&api_domain=hackatime.hackclub.com&theme=solarized-light&custom_title=My+Coding+Stats&layout=compact&cache_seconds=0&langs_count=8" title="Coding stats" width="100%" height="215" style="border: none; max-width: 495px;" loading="lazy">></iframe>
+            <!-- <img src="https://github-readme-stats.hackclub.dev/api/wakatime?username=35839&api_domain=hackatime.hackclub.com&theme=solarized-light&custom_title=My+Coding+Stats&layout=compact&cache_seconds=0&langs_count=8" alt="My coding stats from Hackatime" class="coding_stats" loading="lazy">  -->
             <p></p>
             <div class="break_line_small"></div>
 
