@@ -608,6 +608,14 @@ button.nav_item {
     align-items: center;
 }
 
+.heatmap {
+    padding: 10px 5px;
+    display: flex;
+    background-color: var(--box-color);
+    border-radius: 16px;
+    justify-content: center;
+}
+
 /* Error page */
 .error_page {
     display: flex;
