@@ -214,9 +214,9 @@ def hackatime_get(key, path, ttl=300):
 
 def get_hackatime():
     return {
-        "today": hackatime_get("today", f"https://{cfg.hackatime_host}/api/hackatime/v1/users/{cfg.hackatime_id}/statusbar/today", ttl=60),
-        "week": hackatime_get("week", f"https://{cfg.hackatime_host}/api/hackatime/v1/users/current/stats/last_7_days", ttl=300),
-        "all": hackatime_get("all", f"https://{cfg.hackatime_host}/api/v1/users/{cfg.hackatime_id}/stats", ttl=900)
+        "today": hackatime_get("today", f"/api/hackatime/v1/users/{cfg.hackatime_id}/statusbar/today", ttl=60),
+        "week": hackatime_get("week", f"/api/hackatime/v1/users/current/stats/last_7_days", ttl=300),
+        "all": hackatime_get("all", f"/api/v1/users/{cfg.hackatime_id}/stats", ttl=900)
     }
 
 # --- Google API for calender ---

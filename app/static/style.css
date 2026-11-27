@@ -596,7 +596,7 @@ button.nav_item {
 .bar_fill {
     height: 100%;
     flex-shrink: 0;
-    background: linear-gradient(to right, var(--primary-color), var(--background-color));
+    background: linear-gradient(to right, var(--primary-color), var(--box-color));
     transition: width 0.3s ease;
 }
 
