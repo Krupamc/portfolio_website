@@ -35,6 +35,8 @@ FONTS_DIR = STATIC_DIR / "fonts"
 templates = Jinja2Templates(directory=TEMPLATES_DIR)
 app.mount("/static", StaticFiles(directory=STATIC_DIR), name="static")
 
+_hackatime_cache = {}
+
 # Immich Cache
 _gallery_cache = {
     "expires": 0,
@@ -63,12 +65,9 @@ async def not_found(request: Request, exc: StarletteHTTPException):
 
 @app.get("/", response_class=HTMLResponse)
 def root(request: Request):
-    today = today_summary(request)
-    week = week_summary(request)
-    all = total_code_time(request)
     uptime = get_uptime_status()
     github = get_latest_github_event()
-    return templates.TemplateResponse(request, "home.html", {"request": request, "today": today["data"], "week": week["data"], "all": all["data"], "uptime": uptime, "github": github})
+    return templates.TemplateResponse(request, "home.html", {"request": request, **get_hackatime(), "uptime": uptime, "github": github})
 
 @app.get("/robots.txt", response_class=PlainTextResponse, include_in_schema=False)
 def robots_txt():
@@ -169,26 +168,56 @@ def contact(request: Request):
 #     id = response.json()
 #     return id
 
-@app.get("/hackatime/today")
-def today_summary(request: Request):
-    headers = {"Accept": "application/json", "Authorization": f"Bearer {cfg.hackatime_token.strip()}"}
-    response = requests.get(f"https://{cfg.hackatime_host}/api/hackatime/v1/users/{cfg.hackatime_id}/statusbar/today", headers=headers)
-    response.raise_for_status()
-    return response.json()
+# @app.get("/hackatime/today")
+# def today_summary(request: Request):
+#     headers = {"Accept": "application/json", "Authorization": f"Bearer {cfg.hackatime_token.strip()}"}
+#     response = requests.get(f"https://{cfg.hackatime_host}/api/hackatime/v1/users/{cfg.hackatime_id}/statusbar/today", headers=headers)
+#     response.raise_for_status()
+#     return response.json()
 
-@app.get("/hackatime/week")
-def week_summary(request: Request):
-    headers = {"Accept": "application/json", "Authorization": f"Bearer {cfg.hackatime_token.strip()}"}
-    response = requests.get(f"https://{cfg.hackatime_host}/api/hackatime/v1/users/current/stats/last_7_days", headers=headers)
-    response.raise_for_status()
-    return response.json()
+# @app.get("/hackatime/week")
+# def week_summary(request: Request):
+#     headers = {"Accept": "application/json", "Authorization": f"Bearer {cfg.hackatime_token.strip()}"}
+#     response = requests.get(f"https://{cfg.hackatime_host}/api/hackatime/v1/users/current/stats/last_7_days", headers=headers)
+#     response.raise_for_status()
+#     return response.json()
 
-@app.get("/hackatime/stats")
-def total_code_time(request: Request):
-    headers = {"Accept": "application/json", "Authorization": f"Bearer {cfg.hackatime_token.strip()}"}
-    response = requests.get(f"https://{cfg.hackatime_host}/api/v1/users/{cfg.hackatime_id}/stats", headers=headers)
-    response.raise_for_status()
-    return response.json()
+# @app.get("/hackatime/stats")
+# def total_code_time(request: Request):
+#     headers = {"Accept": "application/json", "Authorization": f"Bearer {cfg.hackatime_token.strip()}"}
+#     response = requests.get(f"https://{cfg.hackatime_host}/api/v1/users/{cfg.hackatime_id}/stats", headers=headers)
+#     response.raise_for_status()
+#     return response.json()
+
+def hackatime_get(key, path, ttl=300):
+    entry = _hackatime_cache.setdefault(key, {"expires": 0, "data": None})
+
+    if monotonic() < entry["expires"]:
+        return entry["data"]
+
+    entry["expires"] = monotonic() + 30
+
+    try: 
+        response = requests.get(f"https://{cfg.hackatime_host}{path}", headers={"Accept": "application/json", "Authorization": f"Bearer {cfg.hackatime_token.strip()}"}, timeout=5)
+        response.raise_for_status()
+
+        data = response.json().get("data")
+    except (requests.RequestException, ValueError, AttributeError):
+        return entry["data"]
+
+    if data is None:
+        return entry["data"]
+
+    entry["data"] = data
+    entry["expires"] = monotonic() + ttl
+    return data
+
+def get_hackatime():
+    return {
+        "today": hackatime_get("today", f"https://{cfg.hackatime_host}/api/hackatime/v1/users/{cfg.hackatime_id}/statusbar/today", ttl=60),
+        "week": hackatime_get("week", f"https://{cfg.hackatime_host}/api/hackatime/v1/users/current/stats/last_7_days", ttl=300),
+        "all": hackatime_get("all", f"https://{cfg.hackatime_host}/api/v1/users/{cfg.hackatime_id}/stats", ttl=900)
+    }
 
 # --- Google API for calender ---
 @app.get("/api/calendar-status", include_in_schema=False)
@@ -318,7 +347,7 @@ def gallery_image(asset_id: str):
         if not content_type.startswith("image/"):
             raise ValueError("Unexpected image response.")
 
-        return Response(content=response.content, media_type=content_type, headers={"Cache-Controls": "public, max-age=86400"})
+        return Response(content=response.content, media_type=content_type, headers={"Cache-Control": "public, max-age=86400"})
 
     except (requests.RequestException, ValueError, KeyError):
         raise HTTPException(status_code=503, detail="Photo is currently unavailable.")
@@ -397,7 +426,7 @@ def describe_git_event(event):
     repo = event.get("repo", {}).get("name", "")
     text = None
     if kind == "PushEvent":
-        branch = payload.get("ref", "").removeprefix("ref/heads/")
+        branch = payload.get("ref", "").removeprefix("refs/heads/")
         text = f"Pushed to {branch} in"
     elif kind == "PullRequestEvent":
         text = f"{payload.get('action', 'updated').capitalize()} a pull request in"
@@ -408,7 +437,7 @@ def describe_git_event(event):
     elif kind in git_events:
         text = git_events[kind]
     else:
-        None
+        return None
 
     return {
         "text": text,
@@ -424,7 +453,7 @@ def time_ago(iso):
         return ""
     secs = int((datetime.now(then.tzinfo) - then).total_seconds())
     if secs < 3600:
-        return f"{max(secs // 60), 1}m ago"
+        return f"{max(secs // 60, 1)}m ago"
     if secs < 86400:
         return f"{secs // 3600}h ago"
     return f"{secs // 86400}d ago"

@@ -208,6 +208,7 @@
             <!-- All Summaries -->
             <h1 class="subtitle">What I am Coding...</h1>
 
+            {% if today %}
             <!-- Today Status Bar -->
             <div class="status_card">
                 <p class="status_subtitle">Daily Summary:</p>
@@ -241,6 +242,11 @@
                     <p><b>Current Coding Streak: </b>{{ all["streak"]}}</p>
                 </div>
             </div>
+            {% else %}
+                <div class="status_card">
+                    <span>Coding stats unavailable right now.</span>
+                </div>
+            {% endif %}
 
             <div class="github_widget">
                 <h2>Latest Github Activity:</h2>
