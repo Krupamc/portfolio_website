@@ -1,4 +1,4 @@
-- update my readme
 - random facts
-- latest github activity with github rest IMMICH_API_KEY
+- latest github activity with github rest
 - what Im listening to
+- Homelab monitor: CPU, RAM, temperature, uptime
