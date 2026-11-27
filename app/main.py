@@ -350,7 +350,7 @@ def get_uptime_status():
         
         monitors = response.json()["data"]
         
-    except (requests.RequestException, ValueError, KeyError, TypeError):
+    except (requests.RequestException, ValueError, KeyError):
         return _uptime_cache["services"]  # last good result, or None
 
     counts = count_statuses(monitors)
@@ -363,19 +363,27 @@ def get_uptime_status():
     }
 
     _uptime_cache["services"] = result
-    _uptime_cache["expires"] = monotonic() + 300 # 5 mins
+    _uptime_cache["expires"] = monotonic() + 60 # 1m
 
     print(result)
     return result
 
 # docs version
-@app.get("/api/homelab/status")
+@app.get("/api/homelab/status", include_in_schema=False)
 def homelab_status_api():
     status = get_uptime_status()
     if status is None:
         return JSONResponse({"detail": "Status temporarily unavailable"}, status_code=503)
     return status
 
+# Github Rest API
+@app.get("/api/github/latest")
+def get_latest_github_event(request: Request):
+    response = requests.get(f"https://api.github.com/users/{cfg.github_user}/events/public", timeout=5)
+    response.raise_for_status()
+    
+    record = 
+    return(response.json())
 
 # def calc_stats(request: Request):
 #     today = week_summary(request)

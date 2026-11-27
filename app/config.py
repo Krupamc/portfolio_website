@@ -30,5 +30,7 @@ immich_album_id = os.getenv("IMMICH_ALBUM_ID", "")
 
 uptimerobot_api_key = os.getenv("UPTIMEROBOT_API_KEY", "")
 
+github_user = os.getenv("GITHUB_USER", "")
+
 if not hackatime_token:
     raise RuntimeError("Hackatime Token Missing")
