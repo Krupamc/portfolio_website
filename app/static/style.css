@@ -601,10 +601,11 @@ button.nav_item {
 }
 
 .coding_stats {
-    display: block;
-    width: 100%;
-    max-width: 495px;
+    display: flex;
+    width: min(100%, 1800px);  
     height: auto;
+    justify-content: center;
+    align-items: center;
 }
 
 /* Error page */
