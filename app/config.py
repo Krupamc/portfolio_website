@@ -32,5 +32,9 @@ uptimerobot_api_key = os.getenv("UPTIMEROBOT_API_KEY", "")
 
 github_user = os.getenv("GITHUB_USER", "")
 
+proxmox_url = os.getenv("PROXMOX_URL", "")
+proxmox_token_id = os.getenv("PROXMOX_TOKEN_ID", "")
+promox_secret = os.getenv("PROXMOX_SECRET", "")
+
 if not hackatime_token:
     raise RuntimeError("Hackatime Token Missing")

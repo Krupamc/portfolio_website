@@ -1,5 +1,3 @@
-- random facts
-- latest github activity with github rest
+- random facts  
 - what Im listening to
-- Homelab monitor: CPU, RAM, temperature, uptime
-fix hacaktime widget
+- Homelab monitor: CPU, RAM, temperature, uptime\

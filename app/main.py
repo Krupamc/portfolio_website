@@ -54,6 +54,11 @@ _github_cache = {
     "events": None
 }
 
+_proxmox_cache = {
+    "expires": 0,
+    "stats": None
+}
+
 # For any http error, send them to a specific error page
 @app.exception_handler(StarletteHTTPException)
 async def not_found(request: Request, exc: StarletteHTTPException):
@@ -218,6 +223,7 @@ def get_hackatime():
         "week": hackatime_get("week", f"/api/hackatime/v1/users/current/stats/last_7_days", ttl=300),
         "all": hackatime_get("all", f"/api/v1/users/{cfg.hackatime_id}/stats", ttl=900)
     }
+
 
 # --- Google API for calender ---
 @app.get("/api/calendar-status", include_in_schema=False)
@@ -479,6 +485,19 @@ def get_latest_github_event():
     _github_cache["events"] = items
     _github_cache["expires"] = monotonic() + 300
     return items
+
+# Proxmox Rest API\
+def get_proxmox_stats():
+    if monotonic() < _proxmox_cache["expires"]:
+        return _proxmox_cache["stats"]
+    try:
+        response = requests.get(f"{cfg.proxmox_url}/cluster/resources", headers={"Accept": "application/json", "Authorization": f"PVEAPIToken={cfg.proxmox_token_id}={cfg.proxmox_secret}"}, timeout=10)
+        response.raise_for_status()
+        stats = response.json()
+    except (requests.RequestException, ValueError):
+        return _proxmox_cache["stats"]
+
+    
 
 # def calc_stats(request: Request):
 #     today = week_summary(request)
